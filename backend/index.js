@@ -27,16 +27,13 @@ app.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     console.log(user);
-
     if (!user) {
       return res.status(404).json("User not found");
     }
-
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return res.json("Wrong password");
+      return res.status(401).json("Wrong password");
     }
-
     // If user and password match, send success response
     return res.json("Login successful");
   } catch (err) {
@@ -44,6 +41,7 @@ app.post("/login", async (req, res) => {
     return res.status(500).json("Internal Server Error");
   }
 });
+
 
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;

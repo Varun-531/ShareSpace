@@ -1,15 +1,18 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
+import toast,{Toaster} from "react-hot-toast";
+
 
 function Register() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,19 +23,24 @@ function Register() {
         password,
       });
       console.log("User created successfully");
+      toast.success("User Created")
+      navigate("/login");
       // Redirect or show success message
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        setErrorMessage("Username or email already exists");
+        // setErrorMessage("Username or email already exists");
+        toast.error("Username or email already exists")
       } else {
         console.error(error);
-        setErrorMessage("An error occurred. Please try again later.");
+        toast.error("An error occurred. Please try again later.")
+        // setErrorMessage("An error occurred. Please try again later.");
       }
     }
   };
 
   return (
     <div className="container">
+    <Toaster/>
       <div className="login-container">
         <form className="login-form" onSubmit={handleSubmit}>
           <label htmlFor="userName">UserName</label>
@@ -71,7 +79,7 @@ function Register() {
           <Button variant="primary" type="submit">
             Register
           </Button>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {/* {errorMessage && <p className="error-message">{errorMessage}</p>} */}
         </form>
         <Link to={"/login"}>
           <Button variant="primary">Login</Button>
