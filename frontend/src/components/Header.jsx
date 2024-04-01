@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div>
-      <div className="header rounded">
+      <div className="header">
         <div className="header-container">
           <Link to={"/"}>
             <img
