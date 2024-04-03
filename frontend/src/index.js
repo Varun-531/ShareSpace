@@ -9,6 +9,8 @@ import Register from "./pages/Register";
 import Home from "./pages/home.jsx";
 import Dashboard from "./components/Dashboard";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +22,7 @@ const router = createBrowserRouter([
       {path:"/about",element:<About/>},
       {path:"/login",element:<Login />},
       {path:"/register",element:<Register />},
-      {path:"/dashboard",element:<Dashboard/>}
+      { path: "/dashboard", element: <PrivateRoute><Dashboard /></PrivateRoute> }
   ],
   },
 ]);
@@ -28,6 +30,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <Toaster />
     <RouterProvider router={router} />
   </React.StrictMode>
 );
