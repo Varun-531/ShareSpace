@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 const User = require("./models/user");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 app.use(cors());
@@ -20,7 +21,7 @@ db.once("open", () => {
   console.log("MongoDB connected successfully");
 });
 
-app.post("/login", async (req, res) => {
+app.post("/login",async (req, res) => {
   const { email, password } = req.body;
   console.log(email, password);
 
@@ -35,13 +36,21 @@ app.post("/login", async (req, res) => {
       return res.status(401).json("Wrong password");
     }
     // If user and password match, send success response
-    return res.json("Login successful");
+    // return res.json("Login successful");
+    else{
+      const data = {
+        user:{
+          id: user._id
+        }
+      }
+      const token = jwt.sign(data, "Project-X");
+      return res.json({success: true, token});
+    }
   } catch (err) {
     console.error(err);
     return res.status(500).json("Internal Server Error");
   }
 });
-
 
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
@@ -51,11 +60,17 @@ app.post("/register", async (req, res) => {
     email,
     password: hashedPassword,
   });
-  newUser
+  await newUser
     .save()
     .then(() => {
+      const data = {
+        user: {
+          id: newUser._id,
+        },
+      };
+      const token = jwt.sign(data, "Project-X");
       console.log("User created successfully");
-      res.json("User Created Successfully");
+      res.json({ success: true, token });
     })
     .catch((err) => {
       if (err.code === 11000) {

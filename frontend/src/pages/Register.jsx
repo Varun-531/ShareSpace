@@ -1,11 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
-import toast,{Toaster} from "react-hot-toast";
-
+import toast from "react-hot-toast";
 
 function Register() {
   const navigate = useNavigate();
@@ -23,24 +22,24 @@ function Register() {
         password,
       });
       console.log("User created successfully");
-      toast.success("User Created")
+      toast.success("User Created");
       navigate("/login");
       // Redirect or show success message
     } catch (error) {
       if (error.response && error.response.status === 400) {
         // setErrorMessage("Username or email already exists");
-        toast.error("Username or email already exists")
+        toast.error("Username or email already exists");
       } else {
         console.error(error);
-        toast.error("An error occurred. Please try again later.")
+        toast.error("An error occurred. Please try again later.");
         // setErrorMessage("An error occurred. Please try again later.");
       }
     }
   };
 
   return (
-    <div className="container">
-    <Toaster/>
+    <div className="container1">
+      {/* <Toaster/> */}
       <div className="login-container">
         <form className="login-form" onSubmit={handleSubmit}>
           <label htmlFor="userName">UserName</label>
