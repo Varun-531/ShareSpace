@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import { Button } from "react-bootstrap";
 
 const ErrorPage = () => {
   return (
-    <div>ErrorPage</div>
-  )
-}
+    <div className="center">
+      <h2>Page not Found</h2>
+      <Button href="/">Home</Button>
+    </div>
+  );
+};
 
-export default ErrorPage
+export default ErrorPage;

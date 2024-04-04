@@ -1,6 +1,13 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
-const Header = () =>{
+const Header = () => {
+  const handleLogout = () => {
+    if (localStorage.getItem("auth-token")) {
+      localStorage.removeItem("auth-token");
+      toast.success("You have been logged out");
+    }
+  };
   return (
     <div>
       <div className="header">
@@ -9,7 +16,7 @@ const Header = () =>{
             <img
               width="100"
               height="100"
-              src="https://img.icons8.com/ios/100/project-management.png"
+              src="https://img.icons8.com/color/48/project.png"
               alt="project-management"
             />
           </Link>
@@ -21,13 +28,15 @@ const Header = () =>{
               <Link to={"/login"}>Login</Link>
             </li>
             <li>
-              <Link to={"/register"}>Register</Link>
+              <Link to={"/logout"} onClick={handleLogout}>
+                Logout
+              </Link>
             </li>
           </ul>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Header;

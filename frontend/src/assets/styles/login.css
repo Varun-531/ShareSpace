@@ -1,0 +1,72 @@
+:root {
+  --font-color1: #1b1725;
+}
+* {
+  color: var(--font-color1);
+}
+.login-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid black;
+  padding: 10px;
+  gap: 5px;
+  width: 300px;
+  border-radius: 5px;
+}
+input:focus {
+  outline: none;
+}
+input {
+  width: 280px;
+  margin-top: 10px;
+  /* border-radius: 4px; */
+  font-weight: 600;
+  border: none;
+  padding: 3px;
+  padding-left: 5px;
+  border-bottom: 1.4px solid black;
+  background-color: transparent;
+}
+
+.container1 {
+  /* padding-top: 5px; */
+  /* background-color: rgb(185, 245, 245); */
+  background-image: url("https://static.vecteezy.com/system/resources/previews/003/724/945/non_2x/cute-doodle-with-cloud-rainbow-sun-animal-vector.jpg");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+}
+.login-form h1 {
+  text-align: center;
+  font-size: 5vh;
+}
+.login-form p {
+  color: var(--font-color1);
+  padding-top: 2px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+.login-form a {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--font-color1);
+}
+.login-form button {
+  background-color: #1b1725;
+  border: none;
+}
+.login-form button:hover {
+  background-color: #272727 !important;
+}

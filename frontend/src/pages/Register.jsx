@@ -42,34 +42,32 @@ const Register = () => {
       {/* <Toaster/> */}
       <div className="login-container">
         <form className="login-form" onSubmit={handleSubmit}>
-          <label htmlFor="userName">UserName</label>
+          <h1>Register</h1>
           <input
             type="text"
             value={username}
             name="username"
             id="username"
-            placeholder="Enter your Username"
+            placeholder="Username"
             onChange={(e) => {
               setUsername(e.target.value);
             }}
           />
-          <label htmlFor="email">Email</label>
           <input
             type="email"
             name="email"
             id="email"
-            placeholder="Enter your Email"
+            placeholder="Email"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
           />
-          <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
             id="password"
-            placeholder="Enter your Password"
+            placeholder="Password"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -78,11 +76,11 @@ const Register = () => {
           <Button variant="primary" type="submit">
             Register
           </Button>
+          <p>
+            Already a user? <Link to={"/login"}>login</Link>
+          </p>
           {/* {errorMessage && <p className="error-message">{errorMessage}</p>} */}
         </form>
-        <Link to={"/login"}>
-          <Button variant="primary">Login</Button>
-        </Link>
       </div>
     </div>
   );
