@@ -24,6 +24,7 @@
 }
 input:focus {
   outline: none;
+  background-color: transparent;
 }
 input {
   width: 280px;
