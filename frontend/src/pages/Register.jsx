@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 
-function Register() {
+const Register = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -86,6 +86,6 @@ function Register() {
       </div>
     </div>
   );
-}
+};
 
 export default Register;

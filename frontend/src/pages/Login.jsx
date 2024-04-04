@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 
-function Login() {
+const Login = () =>{
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-function Header() {
+const Header = () =>{
   return (
     <div>
       <div className="header">
