@@ -6,11 +6,21 @@ const User = require("./models/user");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
+const session = require("express-session");
 
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use(
+  session({
+    secret: "your-secret-key",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false, maxAge: 3600000 },
+  })
+);
 
 mongoose.connect("mongodb://127.0.0.1:27017/ProjectX", {
   // useNewUrlParser: true,
@@ -37,17 +47,18 @@ app.post("/login", async (req, res) => {
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
       return res.status(401).json("Wrong password");
-    }
-    // If user and password match, send success response
-    // return res.json("Login successful");
-    else {
+    } else {
+      req.session.user = {
+        id: user._id,
+      };
       const data = {
         user: {
           id: user._id,
         },
       };
       const token = jwt.sign(data, "Project-X");
-      return res.json({ success: true, token });
+      console.log(req.session);
+      return res.json({ success: true, token, userId: user._id }); 
     }
   } catch (err) {
     console.error(err);
@@ -101,14 +112,14 @@ app.post("/forgot-password", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "hotmail",
       auth: {
-        user: "no-replyprojecty@hotmail.com", 
-        pass: process.env.REACT_APP_EMAIL_PASSWORD, 
+        user: process.env.REACT_APP_EMAIL,
+        pass: process.env.REACT_APP_EMAIL_PASSWORD,
       },
     });
 
     const mailOptions = {
-      from: "no-replyprojecty@hotmail.com",
-      to: email, 
+      from: process.env.REACT_APP_EMAIL,
+      to: email,
       subject: "Click on the Link to Reset your Password",
       text: `http://localhost:3000/reset-password/${user._id}/${token}`,
     };
@@ -124,26 +135,42 @@ app.post("/forgot-password", async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).send({ Status: "Internal Server Error" }); 
+    return res.status(500).send({ Status: "Internal Server Error" });
   }
 });
 
-app.post("/reset-password/:id/:token",  (req, res) => {
-  const {id, token} = req.params;
-  const {password} = req.body;
-  jwt.verify(token, "forget_password", (err,decoded)=>{
-    if(err){
-      return res.send({Status:"Error with Token"});
+app.post("/reset-password/:id/:token", (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+  jwt.verify(token, "forget_password", (err, decoded) => {
+    if (err) {
+      return res.send({ Status: "Error with Token" });
+    } else {
+      bcrypt
+        .hash(password, 10)
+        .then((hash) => {
+          User.findByIdAndUpdate({ _id: id }, { password: hash })
+            .then((u) => res.send({ Status: "Password Updated" }))
+            .catch((err) => res.send({ Status: "Error Updating Password" }));
+        })
+        .catch((err) => res.send({ Status: "Error Hashing Password" }));
     }
-    else{
-      bcrypt.hash(password,10).then((hash)=>{
-        User.findByIdAndUpdate({_id:id},{password:hash})
-        .then(u =>res.send({Status:"Password Updated"}))
-        .catch(err=>res.send({Status:"Error Updating Password"}))
-      })
-      .catch(err=>res.send({Status:"Error Hashing Password"}))
+  });
+});
+
+//create a route that returns the username of the user from id
+app.get("/get-username/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json("User not found");
     }
-  })
+    return res.json({ username: user.username });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json("Internal Server Error");
+  }
 });
 
 app.listen(3001, () => {

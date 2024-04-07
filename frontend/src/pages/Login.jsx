@@ -6,11 +6,13 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cookies,setCookie] = useCookies(["user"]);
   const handleLogin = (e) => {
     e.preventDefault();
     axios
@@ -20,11 +22,18 @@ const Login = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Login Successful", {
-            // duration: 5000,
-          });
-          console.log(res);
+          const userId = res.data.userId;
+          //store userId in cookie
+          setCookie("userId", userId, { path: '/', maxAge: 24 * 60 * 60 });
+          console.log(userId);
+          
           localStorage.setItem("auth-token", res.data.token);
+          axios
+            .get(`http://localhost:3001/get-username/${userId}`)
+            .then((res) => {
+              console.log(res.data.username);
+              toast.success("Hello "+res.data.username);
+            });
           navigate("/Dashboard");
         }
       })
@@ -44,7 +53,6 @@ const Login = () => {
       <div className="login-container">
         <form className="login-form" onSubmit={handleLogin}>
           <h1>Login</h1>
-          {/* <label htmlFor="email">Email</label> */}
           <input
             type="email"
             name="email"
@@ -56,7 +64,6 @@ const Login = () => {
             }}
             autoComplete="off"
           />
-          {/* <label htmlFor="password">Password</label> */}
           <input
             type="password"
             name="password"
@@ -74,9 +81,10 @@ const Login = () => {
           <p>
             Dont have an account? <Link to={"/register"}>register</Link>
           </p>
-          <p><Link to={"/forgot-password"}>Forgot Password</Link></p>
+          <p>
+            <Link to={"/forgot-password"}>Forgot Password</Link>
+          </p>
         </form>
-        
       </div>
     </div>
   );
