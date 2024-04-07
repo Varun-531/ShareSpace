@@ -7,7 +7,7 @@ const Logout = () => {
     localStorage.removeItem("auth-token");
   }, []);
 
-  return <Navigate to="/login" state={{ from: location }} replace />;
+  return <Navigate to="/home" state={{ from: location }} replace />;
 };
 
 export default Logout;

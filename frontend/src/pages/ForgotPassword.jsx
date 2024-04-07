@@ -1,31 +1,27 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 
-const Login = () => {
+const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/login", {
+      .post("http://localhost:3001/forgot-password", {
         email: email,
-        password: password,
       })
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Login Successful", {
+          toast.success("Email sent successfully", {
             // duration: 5000,
           });
-          console.log(res);
-          localStorage.setItem("auth-token", res.data.token);
-          navigate("/Dashboard");
+          navigate("/login");
         }
       })
       .catch((err) => {
@@ -43,38 +39,23 @@ const Login = () => {
     <div className="container1">
       <div className="login-container">
         <form className="login-form" onSubmit={handleLogin}>
-          <h1>Login</h1>
+          <h3 style={{textAlign:"center"}}>Forgot Password</h3>
           {/* <label htmlFor="email">Email</label> */}
           <input
             type="email"
             name="email"
             id="email"
-            placeholder="Email"
+            placeholder="Enter Email"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
             autoComplete="off"
           />
-          {/* <label htmlFor="password">Password</label> */}
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            autoComplete="off"
-          />
           <Button variant="primary" className="btt" type="submit">
-            Login
+            Send
           </Button>
-          <p>
-            Dont have an account? <Link to={"/register"}>register</Link>
-          </p>
-          <p><Link to={"/forgot-password"}>Forgot Password</Link></p>
+          {/* <p><Link to={"/forgot-password"}>Forgot Password</Link></p> */}
         </form>
         
       </div>
@@ -82,4 +63,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

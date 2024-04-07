@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import "./assets/styles/login.css"
-import "./assets/styles/home.css"
+import "./assets/styles/login.css";
+import "./assets/styles/home.css";
 import Layout from "./components/Layout";
 import ErrorPage from "./components/ErrorPage";
 import About from "./pages/About";
@@ -14,6 +14,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import PrivateRoute from "./components/PrivateRoute";
 import Logout from "./pages/Logout";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,8 @@ const router = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
+      { path: "/forgot-password", element: <ForgotPassword /> },
+      {path:"/reset-password/:id/:token",element:<ResetPassword/>},
       {
         path: "/dashboard",
         element: (

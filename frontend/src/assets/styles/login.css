@@ -64,6 +64,9 @@ input {
   font-weight: 600;
   color: var(--font-color1);
 }
+.login-form a:hover {
+  text-decoration: underline;
+}
 .login-form button {
   background-color: #1b1725;
   border: none;

@@ -11,35 +11,39 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [errorMessage, setErrorMessage] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post("http://localhost:3001/register", {
-        username,
-        email,
-        password,
-      });
-      console.log("User created successfully");
-      toast.success("User Created");
-      navigate("/login");
-      // Redirect or show success message
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        // setErrorMessage("Username or email already exists");
-        toast.error("Username or email already exists");
-      } else {
-        console.error(error);
-        toast.error("An error occurred. Please try again later.");
-        // setErrorMessage("An error occurred. Please try again later.");
+    if (username.length < 3) {
+      toast.error("Username should be atleast 3 characters long");
+    } else if (password.length < 6) {
+      toast.error("Password should be atleast 6 characters long");
+    } else if (password === confirmpassword) {
+      try {
+        await axios.post("http://localhost:3001/register", {
+          username,
+          email,
+          password,
+        });
+        console.log("User created successfully");
+        toast.success("User Created");
+        navigate("/login");
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          toast.error("Username or email already exists");
+        } else {
+          console.error(error);
+          toast.error("An error occurred. Please try again later.");
+        }
       }
+    } else {
+      toast.error("Passwords do not match");
     }
   };
 
   return (
     <div className="container1">
-      {/* <Toaster/> */}
       <div className="login-container">
         <form className="login-form" onSubmit={handleSubmit}>
           <h1>Register</h1>
@@ -52,6 +56,8 @@ const Register = () => {
             onChange={(e) => {
               setUsername(e.target.value);
             }}
+            //stop auto suggestions
+            autoComplete="off"
           />
           <input
             type="email"
@@ -62,6 +68,7 @@ const Register = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            autoComplete="off"
           />
           <input
             type="password"
@@ -72,6 +79,18 @@ const Register = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            autoComplete="off"
+          />
+          <input
+            type="password"
+            name="confirmpassword"
+            id="confirmpassword"
+            placeholder="Confirm Password"
+            value={confirmpassword}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+            }}
+            autoComplete="off"
           />
           <Button variant="primary" type="submit">
             Register
@@ -79,7 +98,6 @@ const Register = () => {
           <p>
             Already a user? <Link to={"/login"}>login</Link>
           </p>
-          {/* {errorMessage && <p className="error-message">{errorMessage}</p>} */}
         </form>
       </div>
     </div>
