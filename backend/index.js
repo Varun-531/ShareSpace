@@ -102,7 +102,7 @@ app.post("/forgot-password", async (req, res) => {
       service: "hotmail",
       auth: {
         user: "no-replyprojecty@hotmail.com", 
-        pass: "myheroacademia@2", 
+        pass: process.env.REACT_APP_EMAIL_PASSWORD, 
       },
     });
 
