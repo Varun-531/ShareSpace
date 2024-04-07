@@ -58,7 +58,7 @@ app.post("/login", async (req, res) => {
       };
       const token = jwt.sign(data, "Project-X");
       console.log(req.session);
-      return res.json({ success: true, token, userId: user._id }); 
+      return res.json({ success: true, token, userId: user._id });
     }
   } catch (err) {
     console.error(err);
