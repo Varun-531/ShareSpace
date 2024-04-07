@@ -5,7 +5,9 @@ const cors = require("cors");
 const User = require("./models/user");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
 
+dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -107,7 +109,7 @@ app.post("/forgot-password", async (req, res) => {
     const mailOptions = {
       from: "no-replyprojecty@hotmail.com",
       to: email, 
-      subject: "Reset your Password",
+      subject: "Click on the Link to Reset your Password",
       text: `http://localhost:3000/reset-password/${user._id}/${token}`,
     };
 
@@ -122,7 +124,7 @@ app.post("/forgot-password", async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).send({ Status: "Internal Server Error" }); // Handle internal server error
+    return res.status(500).send({ Status: "Internal Server Error" }); 
   }
 });
 

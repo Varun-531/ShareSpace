@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import "./assets/styles/login.css";
 import "./assets/styles/home.css";
+import "./assets/styles/dashboard.css";
 import Layout from "./components/Layout";
 import ErrorPage from "./components/ErrorPage";
 import About from "./pages/About";

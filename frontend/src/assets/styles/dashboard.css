@@ -1,0 +1,8 @@
+.dashboard {
+  height: 83vh;
+  background-image: url("../images/dashboard.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
