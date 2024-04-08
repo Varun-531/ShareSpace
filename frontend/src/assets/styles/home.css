@@ -1,7 +1,10 @@
 .home-container {
-  background-image: url("../images/home.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   height: 83vh;
+}
+.vantaContainer{
+  height: 83vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
