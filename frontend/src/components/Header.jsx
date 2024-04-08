@@ -6,13 +6,6 @@ import axios from "axios";
 
 const Header = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-  //get the userId from the user cookie
-  
-
-
-
-  // axios.get("http://localhost:3001/get-username/${}")
-
   const handleLogout = () => {
     if (localStorage.getItem("auth-token")) {
       localStorage.removeItem("auth-token");

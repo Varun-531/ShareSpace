@@ -4,7 +4,11 @@
 .vantaContainer{
   height: 83vh;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  padding-left: 50px;
   justify-content: center;
   flex-direction: column;
+}
+.vantaContainer h1{
+  
 }
