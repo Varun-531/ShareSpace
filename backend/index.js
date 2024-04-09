@@ -3,10 +3,12 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 const User = require("./models/user");
+const Blog = require("./models/Blog");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 const session = require("express-session");
+const BlogRouter = require("./routes/blogRoute");
 
 dotenv.config();
 const app = express();
@@ -172,6 +174,69 @@ app.get("/get-username/:id", async (req, res) => {
     return res.status(500).json("Internal Server Error");
   }
 });
+
+// app.use("/blog", BlogRouter);
+//*****************************************blog routes*****************************************//
+app.post("/add-blog", async (req, res) => {
+  const { title, description, image, userId } = req.body;
+  const newBlog = new Blog({
+    title,
+    description,
+    image,
+    userId,
+  });
+  try {
+    await newBlog.save();
+    return res.status(200).json(newBlog);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json("Internal Server Error");
+  }
+});
+
+app.get("/fetch-blogs", async (req, res) => {
+  try {
+    const bloglist = await Blog.find();
+    if (!bloglist) {
+      return res.status(404).json("No blogs found");
+    }
+    return res.status(200).json(bloglist);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json("Internal Server Error");
+  }
+})
+
+app.delete("/delete-blog/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const findBlog = await Blog.findByIdAndDelete(id);
+    if (!findBlog) {
+      return res.status(404).json("Blog not found");
+    }
+    return res.status(200).json("Blog deleted successfully");
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json("Internal Server Error");
+  }
+})
+
+//update route 
+app.post("/update-blog/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, description, image } = req.body;
+  try {
+    const currentBlog = await Blog.findByIdAndUpdate(id, {
+      title,
+      description,
+      image
+    });
+    return res.status(200).json(currentBlog);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json("Internal Server Error");
+  }
+})
 
 app.listen(3001, () => {
   console.log("Server is running on port 3001");

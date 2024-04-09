@@ -12,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cookies,setCookie] = useCookies(["user"]);
+  const [cookies, setCookie] = useCookies(["user"]);
   const handleLogin = (e) => {
     e.preventDefault();
     axios
@@ -24,15 +24,15 @@ const Login = () => {
         if (res.status === 200) {
           const userId = res.data.userId;
           //store userId in cookie
-          setCookie("userId", userId, { path: '/', maxAge: 24 * 60 * 60 });
+          setCookie("userId", userId, { path: "/", maxAge: 24 * 60 * 60 });
           console.log(userId);
-          
+
           localStorage.setItem("auth-token", res.data.token);
           axios
             .get(`http://localhost:3001/get-username/${userId}`)
             .then((res) => {
               console.log(res.data.username);
-              toast.success("Hello "+res.data.username);
+              toast.success("Hello " + res.data.username);
             });
           navigate("/Dashboard");
         }

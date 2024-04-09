@@ -17,6 +17,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import Logout from "./pages/Logout";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
+import CreatePosts from "./pages/CreatePosts.jsx";
+import AuthorPosts from "./pages/AuthorPosts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,22 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path:"/create-post",
+        element:(
+          <PrivateRoute>
+            <CreatePosts/>
+          </PrivateRoute>
+        )
+      },
+      {
+        path:"/author-post",
+        element:(
+          <PrivateRoute>
+            <AuthorPosts/>
+          </PrivateRoute>
+        )
+      }
     ],
   },
 ]);

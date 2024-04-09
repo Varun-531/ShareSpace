@@ -9,6 +9,7 @@
   justify-content: center;
   flex-direction: column;
 }
-.vantaContainer h1{
-  
+.vantaContainer p{
+  margin-top: 80px;
+  position: absolute;
 }
