@@ -79,3 +79,8 @@
   margin-left: 10px;
   /* margin: 0; */
 }
+.blog-buttons{
+  display: flex;
+  justify-content:space-around;
+  margin: 10px;
+}

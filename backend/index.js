@@ -205,7 +205,7 @@ app.get("/fetch-blogs", async (req, res) => {
     console.error(err);
     return res.status(500).json("Internal Server Error");
   }
-})
+});
 
 app.delete("/delete-blog/:id", async (req, res) => {
   const { id } = req.params;
@@ -219,9 +219,9 @@ app.delete("/delete-blog/:id", async (req, res) => {
     console.error(err);
     return res.status(500).json("Internal Server Error");
   }
-})
+});
 
-//update route 
+//update route
 app.post("/update-blog/:id", async (req, res) => {
   const { id } = req.params;
   const { title, description, image } = req.body;
@@ -229,14 +229,43 @@ app.post("/update-blog/:id", async (req, res) => {
     const currentBlog = await Blog.findByIdAndUpdate(id, {
       title,
       description,
-      image
+      image,
     });
     return res.status(200).json(currentBlog);
   } catch (err) {
     console.error(err);
     return res.status(500).json("Internal Server Error");
   }
-})
+});
+
+//fetch the blogs by userId
+app.get("/fetch-blogs/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const bloglist = await Blog.find({ userId });
+    if (!bloglist) {
+      return res.status(404).json("No blogs found");
+    }
+    return res.status(200).json(bloglist);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json("Internal Server Error");
+  }
+});
+//fetch the blog by id
+app.get("/fetch-blog/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const blog = await Blog.findById(id);
+    if (!blog) {
+      return res.status(404).json("No blog found");
+    }
+    return res.status(200).json(blog);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json("Internal Server Error");
+  }
+});
 
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
