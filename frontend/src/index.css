@@ -26,6 +26,7 @@
 }
 .header-container a:hover {
   color: #5C5B5D;
+  transition: 0.3s ease-in-out;
 }
 .header-container img {
   height: 50px;
@@ -49,8 +50,6 @@
   margin: 5px;
   cursor: pointer;
 }
-
-/* login */
 
 /* footer */
 .footer {

@@ -78,7 +78,7 @@ const AuthorPosts = () => {
   };
 
   const shortenDescription = (description) =>
-    description.length > 100 ? description.substr(0, 100) + "..." : description;
+    description.length > 200 ? description.substr(0, 200) + "..." : description;
 
   const shortenTitle = (title) =>
     title.length > 20 ? title.substr(0, 20) + "..." : title;
@@ -89,7 +89,7 @@ const AuthorPosts = () => {
       <div className="main-container">
         <div className="blogs-container">
           {blogsList.map((blog) => (
-            <article key={blog._id} className="blog">
+            <article key={blog._id} className="blog blog2">
               <div className="blog-header">
                 <img className="blog-img" src={blog.image} alt={blog.title} />
               </div>
@@ -98,7 +98,10 @@ const AuthorPosts = () => {
                 <p>{shortenDescription(blog.description)}</p>
               </div>
               <div className="blog-footer">
-                <p className="p-time">Created {format(blog.createdAt)}</p>
+                <p className="p-time">
+                  <span className="span-author">Created : </span>
+                  {format(blog.createdAt)}
+                </p>
                 <div className="blog-buttons">
                   <Button
                     onClick={() =>

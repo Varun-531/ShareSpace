@@ -12,6 +12,9 @@ const Header = () => {
       toast.success("You have been logged out");
       removeCookie("userId");
     }
+    else{
+      toast.error("You are not logged in");
+    }
   };
 
   return (
@@ -28,12 +31,14 @@ const Header = () => {
           </Link>
           <ul>
             <li>
-              <Link to={"/dashboard"}>Home</Link>
+              <Link to={"/dashboard"}>Blogs</Link>
             </li>
             <li>
-              <Link to={"/about"}>About</Link>
+              <Link to={"/create-post"}>Create Blog</Link>
             </li>
-
+            <li>
+              <Link to={"/author-post"}>Your Posts</Link>
+            </li>
             <li>
               <Link to={"/login"}>Login</Link>
             </li>

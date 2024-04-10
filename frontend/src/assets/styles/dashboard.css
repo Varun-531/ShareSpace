@@ -56,10 +56,10 @@
 }
 .blog-info h3 {
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 .blog-info p {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 .span-author {
   font-weight: bolder;
@@ -75,12 +75,74 @@
 .p-time {
   font-size: 0.8rem !important;
 }
-.blog-footer{
+.blog-footer {
   margin-left: 10px;
   /* margin: 0; */
 }
-.blog-buttons{
+.blog-buttons {
   display: flex;
-  justify-content:space-around;
+  justify-content:space-between;
   margin: 10px;
+}
+.main button {
+  background-color: rgb(161, 102, 255);
+  color: black;
+  border: none;
+  padding: 5px;
+  margin: 10px;
+}
+
+.creatBlog {
+  background-color: rgb(237, 244, 255);
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  width: 45vw;
+}
+.container2 {
+  /* border: 2px solid black; */
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  /* margin: 100px; */
+  height: 85vh;
+  width: 100vw;
+  padding: 10px;
+  flex-direction: column;
+  /* background-color: salmon; */
+  align-items: center;
+}
+.creatBlog input {
+  width: 95%;
+  padding: 1px;
+  margin: 10px;
+}
+.description {
+  border: 1px solid black;
+  padding: 1px;
+  margin: 1px;
+  /* height: 200px; */
+  width: 42vw;
+  margin-bottom: 10px;
+}
+.create-blog-form button {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border: none;
+  padding: 5px;
+  margin: 10px;
+}
+.blog-buttons button{
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border: none;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 10px;
+  min-width: 60px;
+}
+.blog2{
+  height:73vh;
 }

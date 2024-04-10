@@ -1,30 +1,29 @@
 .custom-modal {
-    /* Add your custom styles here */
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .custom-modal .modal-header {
-    /* Header styles */
-    background-color: #f8f9fa;
-    color: #333;
-    border-bottom: 1px solid #dee2e6;
-  }
-  
-  .custom-modal .modal-title {
-    /* Title styles */
-  }
-  
-  .custom-modal .modal-body {
-    /* Body styles */
-  }
-  
-  .custom-modal .modal-footer {
-    /* Footer styles */
-  }
-  .modal-image {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px; /* Adjust margin as needed */
-  }
-  
+  /* Add your custom styles here */
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.custom-modal .modal-header {
+  /* Header styles */
+  background-color: #f8f9fa;
+  color: #333;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.custom-modal .modal-title {
+  /* Title styles */
+}
+
+.custom-modal .modal-body {
+  /* Body styles */
+}
+
+.custom-modal .modal-footer {
+  /* Footer styles */
+}
+.modal-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px; /* Adjust margin as needed */
+}

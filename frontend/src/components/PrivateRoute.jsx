@@ -1,12 +1,16 @@
 import { Navigate, useLocation } from "react-router-dom";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const PrivateRoute = ({ children }) => {
   const authToken = localStorage.getItem("auth-token");
   const location = useLocation();
-  // if (!authToken) {
-  //   toast.error("You must be logged in to access this page");
-  // }
+  useEffect(() => {
+    if (!authToken) {
+      toast.error("You are not logged in");
+    }
+  }, []);
+
 
   return authToken ? (
     children

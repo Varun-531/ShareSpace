@@ -43,17 +43,21 @@ const Dashboard = () => {
     navigate("/author-post");
   };
   const shortenDescription = (description) =>
-    description.length > 100 ? description.substr(0, 100) + "..." : description;
+    description.length > 200 ? description.substr(0, 200) + "..." : description;
 
   const shortenTitle = (title) =>
-    title.length > 20 ? title.substr(0, 20) + "..." : title;
+    title.length > 23 ? title.substr(0, 23) + "..." : title;
 
   return (
-    <>
-      <h1>Welcome {username}</h1>
-      <Button onClick={handleCreateBlog}>Create Post</Button>
+    <div className="main">
+      {/* <h1>Welcome {username}</h1> */}
+      {/* <Button className="dash-button" onClick={handleCreateBlog}>
+        Create Post
+      </Button>
       <br />
-      <Button onClick={handleAuthorPosts}>Your Posts</Button>
+      <Button className="dash-button" onClick={handleAuthorPosts}>
+        Your Posts
+      </Button> */}
 
       <div className="main-container">
         <div className="blogs-container">
@@ -68,7 +72,7 @@ const Dashboard = () => {
               </div>
               <div className="blog-footer">
                 <p className="p-author">
-                  <span className="span-author">Author:</span>{" "}
+                  <span className="span-author">Author : </span>{" "}
                   {usernames[blog.userId]}
                 </p>
                 <p className="p-time">{format(blog.createdAt)}</p>
@@ -77,7 +81,7 @@ const Dashboard = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

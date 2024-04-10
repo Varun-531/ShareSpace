@@ -67,38 +67,42 @@ const CreatePosts = () => {
     "image",
   ];
   return (
-    <div className="creatBlog">
-      <Button onClick={handleHome}>Back to Home</Button>
+    <div className="container2">
       <h2>Create Post</h2>
-      <form className="create-blog-form" onSubmit={handleCreatePost}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
-        <br />
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={image}
-          onChange={(e) => {
-            setImage(e.target.value);
-          }}
-        />
-        <input type="hidden" value={userId} />
-        <ReactQuill
-          modules={modules}
-          formats={formats}
-          value={description}
-          onChange={setDescription}
-        />
-        <Button type="submit" className="btn primary">
-          Create
-        </Button>
-      </form>
+      <div className="creatBlog">
+        {/* <Button onClick={handleHome}>Back to Home</Button> */}
+        <form className="create-blog-form" onSubmit={handleCreatePost}>
+          <input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={image}
+            onChange={(e) => {
+              setImage(e.target.value);
+            }}
+          />
+          <input type="hidden" value={userId} />
+          <ReactQuill
+            className="description"
+            modules={modules}
+            formats={formats}
+            value={description}
+            placeholder="Description"
+            onChange={setDescription}
+          />
+          <Button type="submit" className="btn primary">
+            Create
+          </Button>
+        </form>
+      </div>
     </div>
   );
 };
