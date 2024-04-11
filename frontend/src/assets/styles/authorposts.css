@@ -56,8 +56,9 @@
 }
 #editDescription{
   height: 250px;
+  font-size: 12px;
 }
+
 #editTitle:focus{
   border: none;
-  
 }

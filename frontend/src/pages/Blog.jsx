@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import { format } from "timeago.js";
 import axios from "axios";
 const Blog = () => {
   const [title, setTitle] = useState("");
@@ -9,6 +10,7 @@ const Blog = () => {
   const [authorID, setAuthorID] = useState("");
   const [author, setAuthor] = useState("");
   const location = useLocation();
+  const [time, setTime] = useState("");
   const { id } = location.state;
   axios
     .get(`http://localhost:3001/fetch-blog/${id}`)
@@ -18,6 +20,7 @@ const Blog = () => {
       setDescription(res.data.description);
       setImage(res.data.image);
       setAuthorID(res.data.userId);
+      setTime(res.data.createdAt);
     })
     .catch((err) => {
       console.error(err);
@@ -37,8 +40,14 @@ const Blog = () => {
         <h3 className="blog-header">{title}</h3>
         <img className="blog-image" src={image} alt="BLog" />
         <p className="blog-p">{description}</p>
-        <div>
-          <span className="span-author">Author :</span> {author}
+        <div className="blog1-footer">
+          <div>
+            <span className="span-author">Author :</span> {author}
+          </div>
+          <div className="blog-footer2">
+            <span className="span-author">Created : </span>
+            {format(time)}
+          </div>
         </div>
       </div>
     </div>

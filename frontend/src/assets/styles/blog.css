@@ -1,22 +1,39 @@
 .blog-image {
-  height: 80vh;
+  height: 60vh;
   width: auto;
   /* text-align: center; */
-  margin-left: 13vw;
+  
 }
 .container4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   /* margin: 10px; */
   /* border: 2px solid black; */
-  padding: 30px 50px 30px 50px;
+  padding: 30px 100px 30px 100px;
 }
 .blog-header {
   padding-bottom: 10px;
+  font-size: 20px;
   margin: 0px;
 }
 .blog-p {
   padding-top: 20px;
-  font-size: large;
+  font-size: small;
 }
 .Blog {
-  background-color: rgb(206, 255, 255);
+  background-color: rgb(237, 244, 255);
+}
+.blog-footer{
+  display: flex;
+  justify-content: space-between;
+  /* padding-top: 20px; */
+  align-items: center;
+}
+.blog1-footer{
+  /* margin-left: 10px; */
+  display: flex;
+  width: 81vw;
+  justify-content: space-between;
 }
