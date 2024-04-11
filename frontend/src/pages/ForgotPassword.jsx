@@ -12,6 +12,7 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const handleLogin = (e) => {
     e.preventDefault();
+    toast.loading("Sending email...",{duration: 4000});
     axios
       .post("http://localhost:3001/forgot-password", {
         email: email,
