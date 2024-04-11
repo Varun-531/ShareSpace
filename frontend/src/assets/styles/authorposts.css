@@ -4,6 +4,16 @@
   margin: 0 auto;
 }
 
+.custom-modal input {
+  border: none;
+  border-bottom: 2px solid black;
+  border-radius: 0;
+  padding: 0px;
+}
+.custom-modal input:focus {
+  outline: none;
+}
+
 .custom-modal .modal-header {
   /* Header styles */
   background-color: #f8f9fa;
@@ -26,4 +36,28 @@
   width: 100%;
   height: auto;
   margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+.modal.show .modal-dialog {
+  transform: none;
+  margin-top: 5vh;
+}
+.form-label{
+  padding-bottom: 0;
+  margin-bottom: 0px;
+  font-weight: 600;
+}
+
+.form-label {
+  margin-bottom: 0px !important;
+}
+.form-control{
+  margin-bottom: 8px;
+}
+#editDescription{
+  height: 250px;
+}
+#editTitle:focus{
+  border: none;
+  
 }

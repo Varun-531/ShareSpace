@@ -85,7 +85,7 @@ const AuthorPosts = () => {
 
   return (
     <div>
-      <h1>Your Posts</h1>
+      <h1 id="yourposts">Your Posts</h1>
       <div className="main-container">
         <div className="blogs-container">
           {blogsList.map((blog) => (
@@ -115,7 +115,6 @@ const AuthorPosts = () => {
                   >
                     Edit
                   </Button>
-                  {/* <Button onClick={() => handleView(blog._id)}>View</Button> */}
                   <Button onClick={() => handleDelete(blog._id)}>Delete</Button>
                 </div>
               </div>
@@ -142,6 +141,12 @@ const AuthorPosts = () => {
                 onChange={(e) => setEditTitle(e.target.value)}
               />
             </Form.Group>
+            <Form.Label>Image URL</Form.Label>
+            <Form.Control
+              type="text"
+              value={editImage}
+              onChange={(e) => setEditImage(e.target.value)}
+            />
             <Form.Group controlId="editDescription">
               <Form.Label>Description</Form.Label>
               <Form.Control
@@ -151,23 +156,12 @@ const AuthorPosts = () => {
                 onChange={(e) => setEditDescription(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="editImage">
-              <Form.Label>Image URL</Form.Label>
-              <Form.Control
-                type="text"
-                value={editImage}
-                onChange={(e) => setEditImage(e.target.value)}
-              />
-            </Form.Group>
+            <Form.Group controlId="editImage"></Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSaveEdit}>
-            Save Changes
-          </Button>
+          <Button onClick={handleCloseModal}>Close</Button>
+          <Button onClick={handleSaveEdit}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
     </div>

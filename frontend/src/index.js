@@ -5,6 +5,7 @@ import "./assets/styles/login.css";
 import "./assets/styles/home.css";
 import "./assets/styles/dashboard.css";
 import "./assets/styles/authorposts.css";
+import "./assets/styles/blog.css"
 import Layout from "./components/Layout";
 import ErrorPage from "./components/ErrorPage";
 import About from "./pages/About";
@@ -20,6 +21,7 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import CreatePosts from "./pages/CreatePosts.jsx";
 import AuthorPosts from "./pages/AuthorPosts.jsx";
+import Blog from "./pages/Blog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +64,14 @@ const router = createBrowserRouter([
         element:(
           <PrivateRoute>
             <AuthorPosts/>
+          </PrivateRoute>
+        )
+      },
+      {
+        path:"/dashboard/:id",
+        element:(
+          <PrivateRoute>
+            <Blog />
           </PrivateRoute>
         )
       }

@@ -14,20 +14,35 @@
   flex-direction: row;
   /* justify-content: center; */
   gap: 30px;
-  margin: 10px 50px 10px 50px;
+  margin: 10px 50px 10px 100px;
   padding: 10px;
   /* background-color: antiquewhite; */
 }
+.blog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.blog-footer button {
+  padding: 2px 7px 2px 7px !important;
+  /* margin: 0px !important; */
+  color: aliceblue !important;
+  background-color: black !important;
+  margin-right: 10px !important;
+}
 .blog-header {
-  margin: 5px;
+  /* margin: 5px; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .blog-img {
   height: 31vh;
-  width: 21vw;
-  border-radius: 10px;
+  width: 88vw;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  margin-top: 0px;
+  overflow-x: hidden;
 }
 .author-bottom {
   bottom: 0;
@@ -37,9 +52,9 @@
   /* border: 1px solid black; */
   border-radius: 10px;
   margin: 5px;
-  padding: 5px;
+  /* padding: 5px; */
   width: 25vw;
-  height: 68vh;
+  height: 65vh;
   /* text-align: justify; */
 }
 .blog:hover {
@@ -67,13 +82,17 @@
 .author-bottom {
   margin-top: auto;
 }
+
+.p-author {
+  font-size: 0.8rem;
+}
 .p-author,
 .p-time {
   margin: 0px;
   padding: 0px;
 }
 .p-time {
-  font-size: 0.8rem !important;
+  font-size: 0.7rem !important;
 }
 .blog-footer {
   margin-left: 10px;
@@ -81,7 +100,7 @@
 }
 .blog-buttons {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   margin: 10px;
 }
 .main button {
@@ -118,6 +137,7 @@
   padding: 1px;
   margin: 10px;
 }
+
 .description {
   border: 1px solid black;
   padding: 1px;
@@ -133,7 +153,7 @@
   padding: 5px;
   margin: 10px;
 }
-.blog-buttons button{
+.blog-buttons button {
   background-color: rgb(0, 0, 0);
   color: white;
   border: none;
@@ -143,6 +163,16 @@
   margin: 10px;
   min-width: 60px;
 }
-.blog2{
-  height:73vh;
+.blog2 {
+  height: 67vh;
+}
+
+#yourposts {
+  padding-left: 7vw;
+  padding-top: 10px;
+}
+.modal-footer button{
+  background-color: black;
+  border:none;
+  padding: 5px;
 }

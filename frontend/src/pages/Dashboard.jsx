@@ -36,11 +36,15 @@ const Dashboard = () => {
       });
     });
   }, [userId]);
-  const handleCreateBlog = () => {
-    navigate("/create-post");
-  };
-  const handleAuthorPosts = () => {
-    navigate("/author-post");
+  // const handleCreateBlog = () => {
+  //   navigate("/create-post");
+  // };
+  // const handleAuthorPosts = () => {
+  //   navigate("/author-post");
+  // };
+
+  const handleClicker = (id) => {
+    navigate(`/dashboard/${id}`, { state: { id } });
   };
   const shortenDescription = (description) =>
     description.length > 200 ? description.substr(0, 200) + "..." : description;
@@ -71,11 +75,16 @@ const Dashboard = () => {
                 <p>{shortenDescription(blog.description)}</p>
               </div>
               <div className="blog-footer">
-                <p className="p-author">
-                  <span className="span-author">Author : </span>{" "}
-                  {usernames[blog.userId]}
-                </p>
-                <p className="p-time">{format(blog.createdAt)}</p>
+                <div className="footer-one">
+                  <p className="p-author">
+                    <span className="span-author">Author : </span>{" "}
+                    {usernames[blog.userId]}
+                  </p>
+                  <p className="p-time">{format(blog.createdAt)}</p>
+                </div>
+                <Button onClick={() => handleClicker(blog._id)}>
+                  Read More
+                </Button>
               </div>
             </article>
           ))}
