@@ -10,6 +10,17 @@
   flex-direction: column;
 }
 .vantaContainer p{
-  margin-top: 80px;
+  margin-top: 85px;
   position: absolute;
+  color: rgb(64, 64, 64);
+  font-size: 20px;
+}
+.vantaContainer p span{
+  font-weight: bold;
+  color: black;
+}
+.vantaContainer h1{
+  font-size: 50px;
+  font-weight:light;
+  color: rgb(64, 64, 64);
 }

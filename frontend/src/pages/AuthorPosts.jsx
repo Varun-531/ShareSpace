@@ -88,38 +88,42 @@ const AuthorPosts = () => {
       <h1 id="yourposts">Your Posts</h1>
       <div className="main-container">
         <div className="blogs-container">
-          {blogsList.map((blog) => (
-            <article key={blog._id} className="blog blog2">
-              <div className="blog-header">
-                <img className="blog-img" src={blog.image} alt={blog.title} />
-              </div>
-              <div className="blog-info">
-                <h3>{shortenTitle(blog.title)}</h3>
-                <p>{shortenDescription(blog.description)}</p>
-              </div>
-              <div className="blog-footer">
-                <p className="p-time">
-                  <span className="span-author">Created : </span>
-                  {format(blog.createdAt)}
-                </p>
-                <div className="blog-buttons">
-                  <Button
-                    onClick={() =>
-                      handleEdit(
-                        blog._id,
-                        blog.title,
-                        blog.description,
-                        blog.image
-                      )
-                    }
-                  >
-                    Edit
-                  </Button>
-                  <Button onClick={() => handleDelete(blog._id)}>Delete</Button>
+          {blogsList.length === 0 ? (
+            <p>No blogs available</p>
+          ) : (
+            blogsList.map((blog) => (
+              <article key={blog._id} className="blog blog2">
+                <div className="blog-header">
+                  <img className="blog-img" src={blog.image} alt={blog.title} />
                 </div>
-              </div>
-            </article>
-          ))}
+                <div className="blog-info">
+                  <h3>{shortenTitle(blog.title)}</h3>
+                  <p>{shortenDescription(blog.description)}</p>
+                </div>
+                <div className="blog-footer">
+                  <p className="p-time">
+                    <span className="span-author">Created : </span>
+                    {format(blog.createdAt)}
+                  </p>
+                  <div className="blog-buttons">
+                    <Button
+                      onClick={() =>
+                        handleEdit(
+                          blog._id,
+                          blog.title,
+                          blog.description,
+                          blog.image
+                        )
+                      }
+                    >
+                      Edit
+                    </Button>
+                    <Button onClick={() => handleDelete(blog._id)}>Delete</Button>
+                  </div>
+                </div>
+              </article>
+            ))
+          )}
         </div>
       </div>
       {/* Modal for displaying blog details and editing */}

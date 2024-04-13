@@ -32,7 +32,7 @@ const VantaClouds = ({ children, texts, small }) => {
       setCurrentTextIndex((prevIndex) =>
         prevIndex === texts.length - 1 ? 0 : prevIndex + 1
       );
-    }, 2000); // Change text every 3 seconds, adjust as needed
+    }, 4000); // 
 
     return () => clearInterval(intervalId);
   }, [texts]);
@@ -41,7 +41,7 @@ const VantaClouds = ({ children, texts, small }) => {
     <div className="vantaContainer" ref={vantaRef}>
       {children}
       <h1>{small}</h1>
-      <p>{typedText}</p>
+      <p>Share your <span>{typedText}</span></p>
     </div>
   );
 };

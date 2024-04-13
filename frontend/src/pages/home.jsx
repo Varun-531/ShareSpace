@@ -3,11 +3,10 @@ import VantaClouds from "../components/VantaClouds";
 
 
 const Home = () => {
-  const texts = ["Hello", "Welcome to 123", "my Project"];
+  const texts = ["Story","Knowledge","Experience","Passion"];
   return (
     <div className="home-container">
-      <VantaClouds texts={texts} small="sample">
-        {/* Your content here */}
+      <VantaClouds texts={texts} small="Welcome to ShareSpace">
       </VantaClouds>
     </div>
   );
