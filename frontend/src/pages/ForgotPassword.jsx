@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,7 +19,6 @@ const ForgotPassword = () => {
       .then((res) => {
         if (res.status === 200) {
           toast.success("Email sent successfully", {
-            // duration: 5000,
           });
           navigate("/login");
         }
@@ -41,7 +39,6 @@ const ForgotPassword = () => {
       <div className="login-container">
         <form className="login-form" onSubmit={handleLogin}>
           <h3 style={{textAlign:"center"}}>Forgot Password</h3>
-          {/* <label htmlFor="email">Email</label> */}
           <input
             type="email"
             name="email"
@@ -56,9 +53,7 @@ const ForgotPassword = () => {
           <Button variant="primary" className="btt" type="submit">
             Send
           </Button>
-          {/* <p><Link to={"/forgot-password"}>Forgot Password</Link></p> */}
         </form>
-        
       </div>
     </div>
   );
