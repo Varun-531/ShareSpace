@@ -5,7 +5,7 @@ import "./assets/styles/login.css";
 import "./assets/styles/home.css";
 import "./assets/styles/dashboard.css";
 import "./assets/styles/authorposts.css";
-import "./assets/styles/blog.css"
+import "./assets/styles/blog.css";
 import Layout from "./components/Layout";
 import ErrorPage from "./components/ErrorPage";
 import About from "./pages/About";
@@ -30,11 +30,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Home /> },
-      { path: "/about", element: <About /> },
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Register /> },
-      { path: "/forgot-password", element: <ForgotPassword /> },
-      {path:"/reset-password/:id/:token",element:<ResetPassword/>},
       {
         path: "/dashboard",
         element: (
@@ -52,31 +47,36 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path:"/create-post",
-        element:(
+        path: "/create-post",
+        element: (
           <PrivateRoute>
-            <CreatePosts/>
+            <CreatePosts />
           </PrivateRoute>
-        )
+        ),
       },
       {
-        path:"/author-post",
-        element:(
+        path: "/author-post",
+        element: (
           <PrivateRoute>
-            <AuthorPosts/>
+            <AuthorPosts />
           </PrivateRoute>
-        )
+        ),
       },
       {
-        path:"/dashboard/:id",
-        element:(
+        path: "/dashboard/:id",
+        element: (
           <PrivateRoute>
             <Blog />
           </PrivateRoute>
-        )
-      }
+        ),
+      },
     ],
   },
+  { path: "/about", element: <About /> },
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
+  { path: "/forgot-password", element: <ForgotPassword /> },
+  { path: "/reset-password/:id/:token", element: <ResetPassword /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

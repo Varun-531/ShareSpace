@@ -85,3 +85,13 @@
   border-radius: 25px;
   /* border: 1px solid black; */
 }
+
+.h1h1{
+  color: wheat;
+  padding-top: 10px;
+  font-size: larger;
+}
+.header-left{
+  display: flex;
+align-items: center;
+}

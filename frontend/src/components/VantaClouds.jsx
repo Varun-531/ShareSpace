@@ -1,6 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import CLOUDS from "vanta/src/vanta.clouds";
 import useTypewriter from "react-typewriter-hook";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
+
 
 const VantaClouds = ({ children, texts, small }) => {
   const vantaRef = useRef(null);
@@ -32,16 +37,32 @@ const VantaClouds = ({ children, texts, small }) => {
       setCurrentTextIndex((prevIndex) =>
         prevIndex === texts.length - 1 ? 0 : prevIndex + 1
       );
-    }, 4000); // 
+    }, 3000); //
 
     return () => clearInterval(intervalId);
   }, [texts]);
 
+  const navigate = useNavigate();
+
+  const handleLogin = () =>{
+    navigate("./login")
+  }
+
   return (
     <div className="vantaContainer" ref={vantaRef}>
       {children}
-      <h1>{small}</h1>
-      <p>Share your <span>{typedText}</span></p>
+      {/* <h1>{small}</h1> */}
+      <h1>
+        Share your <span>{typedText}</span>
+      </h1>
+      <Button
+        onClick={() => {
+          handleLogin();
+        }}
+        className="vanta-button"
+      >
+        Login/Signup
+      </Button>
     </div>
   );
 };

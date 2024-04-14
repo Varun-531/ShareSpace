@@ -47,7 +47,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 83vh;
+  height: 100vh;
 }
 .login-form h1 {
   text-align: center;

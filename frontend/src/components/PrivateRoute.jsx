@@ -5,17 +5,17 @@ import { useEffect } from "react";
 const PrivateRoute = ({ children }) => {
   const authToken = localStorage.getItem("auth-token");
   const location = useLocation();
-  // useEffect(() => {
-  //   if (!authToken) {
-  //     toast.error("You are not logged in");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!authToken) {
+      toast.error("You are not logged in");
+    }
+  }, []);
 
 
   return authToken ? (
     children
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/" state={{ from: location }} replace />
   );
 };
 

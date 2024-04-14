@@ -1,26 +1,68 @@
 .home-container {
-  height: 83vh;
+  /* height: 83vh; */
+  display: flex;
 }
-.vantaContainer{
-  height: 83vh;
+.vantaContainer {
+  height: 100vh;
   display: flex;
   /* align-items: center; */
   padding-left: 50px;
   justify-content: center;
   flex-direction: column;
 }
-.vantaContainer p{
+.vantaContainer p {
   margin-top: 85px;
   position: absolute;
   color: rgb(64, 64, 64);
   font-size: 20px;
 }
-.vantaContainer p span{
+.vantaContainer p span {
   font-weight: bold;
   color: black;
 }
-.vantaContainer h1{
-  font-size: 50px;
-  font-weight:light;
+.vantaContainer h1 {
+  font-size: 30px;
+  font-weight: light;
   color: rgb(64, 64, 64);
+}
+.vanta {
+  /* width: 50vw; */
+}
+.vanta-canvas {
+  position: absolute;
+  /* z-index: 0; */
+  /* top: 0px; */
+  /* left: 0px; */
+  /* width: 1280px; */
+  /* height: 83vh !important; */
+  width: 50vw !important;
+}
+.home-left {
+  width: 50vw;
+  /* background-color: #1b1725; */
+  background-image: url(../images/home-left2.jpg);
+  background-size: cover;
+  background-position: center;
+  /* filter: brightness(150%); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 40px;
+}
+.home-left .home-text{
+  color: aliceblue;
+}
+.vanta-button {
+  width: 125px !important;
+  background-color: #1b1725 !important;
+  border: none !important;
+}
+.home-span{
+  font-weight: 500;
+  color: aliceblue;
+}
+.home-text{
+  
 }

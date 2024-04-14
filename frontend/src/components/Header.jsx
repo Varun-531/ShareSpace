@@ -11,8 +11,7 @@ const Header = () => {
       localStorage.removeItem("auth-token");
       toast.success("You have been logged out");
       removeCookie("userId");
-    }
-    else{
+    } else {
       toast.error("You are not logged in");
     }
   };
@@ -21,14 +20,15 @@ const Header = () => {
     <div>
       <div className="header">
         <div className="header-container">
-          <Link to={"/"}>
+         <Link to={"/"}>
             <img
               width="100"
               height="100"
-              src="https://img.icons8.com/color/48/project.png"
+              src="https://img.icons8.com/fluency/48/blog.png"
               alt="project-management"
             />
           </Link>
+          
           <ul>
             <li>
               <Link to={"/dashboard"}>Blogs</Link>
@@ -39,10 +39,6 @@ const Header = () => {
             <li>
               <Link to={"/author-post"}>Your Posts</Link>
             </li>
-            <li>
-              <Link to={"/login"}>Login</Link>
-            </li>
-
             <li>
               <Link to={"/logout"} onClick={handleLogout}>
                 Logout
@@ -56,4 +52,3 @@ const Header = () => {
 };
 
 export default Header;
-

@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { format } from "timeago.js";
+import {Outlet} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -53,6 +56,7 @@ const Dashboard = () => {
     title.length > 23 ? title.substr(0, 23) + "..." : title;
 
   return (
+    <>
     <div className="main">
       {/* <h1>Welcome {username}</h1> */}
       {/* <Button className="dash-button" onClick={handleCreateBlog}>
@@ -91,6 +95,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
