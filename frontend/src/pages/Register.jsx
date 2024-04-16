@@ -12,7 +12,48 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
+  const [otpBox, setOtpBox] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [button1, setButton1] = useState(true);
+  const [button2, setButton2] = useState(false);
+  const [button3, SetButton3] = useState(false);
+  // const [hashedOtp, setHashedOtp] = useState("");
 
+  const handleVerification = async () => {
+    setOtpBox(true);
+    try {
+      axios
+        .post("http://localhost:3001/email-verification", { email })
+        .then((res) => {
+          if (res.status === 200) {
+            toast.success("OTP sent successfully");
+            setButton1(false);
+            setButton2(true);
+          } else {
+            toast.error("Error please try again");
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleOTPVerification = async () => {
+    axios
+      .post(`http://localhost:3001/otp-verification`, { email, otp })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("OTP verified successfully");
+          setOtpSent(true);
+          setButton2(false);
+          setButton1(false);
+          SetButton3(true);
+        } else if (res.status === 400) toast.error("Wrong OTP");
+        else {
+          toast.error("Error please try again");
+        }
+      });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (username.length < 3) {
@@ -56,7 +97,6 @@ const Register = () => {
             onChange={(e) => {
               setUsername(e.target.value);
             }}
-            //stop auto suggestions
             autoComplete="off"
           />
           <input
@@ -70,31 +110,57 @@ const Register = () => {
             }}
             autoComplete="off"
           />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            autoComplete="off"
-          />
-          <input
-            type="password"
-            name="confirmpassword"
-            id="confirmpassword"
-            placeholder="Confirm Password"
-            value={confirmpassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-            }}
-            autoComplete="off"
-          />
-          <Button variant="primary" type="submit">
-            Register
-          </Button>
+          {button1 && (
+            <Button
+              onClick={() => {
+                handleVerification();
+              }}
+            >
+              Send Otp
+            </Button>
+          )}
+          {otpBox && (
+            <input
+              type="text"
+              name="otp"
+              id="otp"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => {
+                setOtp(e.target.value);
+              }}
+            />
+          )}
+          {button2 && <Button onClick={handleOTPVerification}>Verify</Button>}
+          {otpSent && (
+            <>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                autoComplete="off"
+              />
+              <input
+                type="password"
+                name="confirmpassword"
+                id="confirmpassword"
+                placeholder="Confirm Password"
+                value={confirmpassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
+                autoComplete="off"
+              />
+              <Button variant="primary" type="submit">
+                Register
+              </Button>
+            </>
+          )}
           <p>
             Already a user? <Link to={"/login"}>login</Link>
           </p>

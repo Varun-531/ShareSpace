@@ -4,11 +4,13 @@ const bcrypt = require("bcrypt");
 const cors = require("cors");
 const User = require("./models/user");
 const Blog = require("./models/Blog");
+const Otp = require("./models/Otp");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 const session = require("express-session");
 const BlogRouter = require("./routes/blogRoute");
+const otpGenerator = require("otp-generator");
 
 dotenv.config();
 const app = express();
@@ -68,6 +70,73 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//route for email verification
+app.post("/email-verification", async (req, res) => {
+  const { email } = req.body;
+  const otp = otpGenerator.generate(4, {
+    upperCaseAlphabets: false,
+    lowerCaseAlphabets: false,
+    specialChars: false,
+  });
+  console.log(otp);
+  const transporter = nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: process.env.REACT_APP_EMAIL_2,
+      pass: process.env.REACT_APP_EMAIL_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.REACT_APP_EMAIL_2,
+    to: email,
+    subject: "OTP for Email Verification",
+    text: `Your OTP is: ${otp}`,
+  };
+
+  const hashedOtp = await bcrypt.hash(otp, 10);
+  transporter.sendMail(mailOptions, async function (error, info) {
+    if (error) {
+      console.log(error);
+      return res.status(500).send({ Status: "Failed to send email" });
+    } else {
+      try {
+        const newOtp = new Otp({
+          email,
+          otp: hashedOtp,
+        });
+        await newOtp.save();
+        console.log("OTP SAVED");
+        console.log("Email sent:", info.response);
+        return res.status(200).send({ Status: "Success" });
+      } catch (err) {
+        console.error(err);
+        return res.status(500).send({ Status: "Internal Server Error" });
+      }
+    }
+  });
+});
+
+app.post("/otp-verification", async (req, res) => {
+  const { email, otp } = req.body;
+  try {
+    const otpData = await Otp.findOne({ email });
+    if (otpData) {
+      const match = await bcrypt.compare(otp, otpData.otp);
+      if (match) {
+        return res.status(200).send({ Status: "OTP Verified" });
+      } else {
+        return res.status(400).send({ Status: "Wrong OTP" });
+      }
+    } else {
+      return res.status(404).send({ Status: "OTP not found" });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ Status: "Internal Server Error" });
+  }
+});
+
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -114,13 +183,13 @@ app.post("/forgot-password", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "hotmail",
       auth: {
-        user: process.env.REACT_APP_EMAIL,
+        user: process.env.REACT_APP_EMAIL_2,
         pass: process.env.REACT_APP_EMAIL_PASSWORD,
       },
     });
 
     const mailOptions = {
-      from: process.env.REACT_APP_EMAIL,
+      from: process.env.REACT_APP_EMAIL_2,
       to: email,
       subject: "Click on the Link to Reset your Password",
       text: `http://localhost:3000/reset-password/${user._id}/${token}`,
