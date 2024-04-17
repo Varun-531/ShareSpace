@@ -37,3 +37,19 @@
   width: 81vw;
   justify-content: space-between;
 }
+
+
+@media only screen and (max-width:600px){
+  .container4{
+    padding: 10px;
+  }
+  .blog-image{
+    height: 30vh;
+  }
+  .blog-p{
+    padding-bottom: 10px;
+  }
+  .blog1-footer{
+    font-size: small;
+  }
+}

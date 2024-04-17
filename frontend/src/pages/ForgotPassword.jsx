@@ -114,6 +114,7 @@ const ForgotPassword = () => {
               <Link to={`/reset-password/${id}/${jwt}`}>Reset Password</Link>
             </Button>
           )}
+          <p>Back to <Link to={"/login"}>Login</Link></p>
         </form>
       </div>
     </div>

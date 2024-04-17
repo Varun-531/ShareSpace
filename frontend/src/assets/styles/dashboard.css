@@ -176,3 +176,38 @@
   border:none;
   padding: 5px;
 }
+
+@media only screen and (max-width:600px){
+  .blogs-container{
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog{
+    width: 90vw;
+    height: 60vh;
+  }
+  .blog-info{
+    width: 90vw;
+    height: 20vh;
+  }
+  .blog-p{
+    padding: 0;
+    margin: 0;
+  }
+  .creatBlog{
+    width: 90vw;
+    padding-bottom: 10px;
+  }
+  .create-blog-form{
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  .description{
+    width: 80vw;
+  }
+  .ql-toolbar{
+
+  }
+}

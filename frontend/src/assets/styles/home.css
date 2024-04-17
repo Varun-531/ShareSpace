@@ -51,7 +51,7 @@
   color: white;
   font-size: 40px;
 }
-.home-left .home-text{
+.home-left .home-text {
   color: aliceblue;
 }
 .vanta-button {
@@ -59,10 +59,36 @@
   background-color: #1b1725 !important;
   border: none !important;
 }
-.home-span{
+.home-span {
   font-weight: 500;
   color: aliceblue;
 }
-.home-text{
-  
+
+@media only screen and (max-width: 600px) {
+  .home-container {
+    flex-direction: column;
+  }
+  .home-left {
+    width: 100vw;
+    height: 50vh;
+    text-align: center;
+  }
+  .vanta {
+    width: 100vw;
+    height: 50vh;
+  }
+  .vantaContainer {
+    width: 100vw;
+    height: 50vh;
+    overflow: hidden;
+  }
+  .vantaContainer h1{
+    font-size: larger;
+  }
+  .vanta-button{
+    height: 35px;
+  }
+  .vanta-canvas {
+    width: 100vw !important;
+  }
 }
