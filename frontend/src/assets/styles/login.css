@@ -71,6 +71,14 @@ input {
   background-color: #1b1725;
   border: none;
 }
+.login-form button a{
+  color:white;
+  text-decoration: none;
+}
 .login-form button:hover {
   background-color: #272727 !important;
 }
+/* .abcd .button{
+  text-decoration: none;
+  color: white;
+} */

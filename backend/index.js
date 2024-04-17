@@ -101,6 +101,9 @@ app.post("/email-verification", async (req, res) => {
       return res.status(500).send({ Status: "Failed to send email" });
     } else {
       try {
+        // Delete existing OTP with the same email
+        await Otp.deleteOne({ email });
+
         const newOtp = new Otp({
           email,
           otp: hashedOtp,
@@ -116,6 +119,25 @@ app.post("/email-verification", async (req, res) => {
     }
   });
 });
+
+//get id from email 
+app.get("/get-id/:email", async (req, res) => {
+  const { email } = req.params;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json("User not found");
+    }
+    const token = jwt.sign({ id: user._id }, "forget_password", {
+      expiresIn: "1d",
+    });
+    return res.json({ id: user._id, token });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json("Internal Server Error");
+  }
+});
+
 
 app.post("/otp-verification", async (req, res) => {
   const { email, otp } = req.body;
