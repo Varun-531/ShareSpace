@@ -42,6 +42,7 @@
 @media only screen and (max-width:600px){
   .container4{
     padding: 10px;
+    align-items: normal;
   }
   .blog-image{
     height: 30vh;
