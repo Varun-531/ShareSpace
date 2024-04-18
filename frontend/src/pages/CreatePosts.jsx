@@ -18,27 +18,45 @@ const CreatePosts = () => {
   };
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
   const handleCreatePost = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", image);
     axios
-      .post("http://localhost:3001/add-blog", {
-        title: title,
-        description: description,
-        image: image,
-        userId: userId,
+      .post("http://localhost:3001/upload-image", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then((res) => {
-        if (res.status === 200) {
-          toast.success("Post created successfully");
-          navigate("/Dashboard");
+        try {
+          console.log(res.data.url);
+          setImageUrl(res.data.url);
+          axios
+            .post("http://localhost:3001/add-blog", {
+              title: title,
+              description: description,
+              image: res.data.url,
+              userId: userId,
+            })
+            .then((res) => {
+              if (res.status === 200) {
+                toast.success("Post created successfully");
+                navigate("/Dashboard");
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              toast.error("An error occurred. Please try again later.");
+            });
+        } catch (err) {
+          console.log(err);
         }
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("An error occurred. Please try again later.");
       });
   };
+
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -81,14 +99,22 @@ const CreatePosts = () => {
             }}
           />
           <br />
-          <input
+          {/* <input
             type="text"
             placeholder="Image URL"
             value={image}
             onChange={(e) => {
               setImage(e.target.value);
             }}
+          /> */}
+          <input
+            type="file"
+            name="Image"
+            id="Image"
+            onChange={(e) => setImage(e.target.files[0])}
+            accept="png, jpg, jpeg"
           />
+
           <input type="hidden" value={userId} />
           <ReactQuill
             className="description"

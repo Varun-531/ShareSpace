@@ -11,6 +11,15 @@ const dotenv = require("dotenv");
 const session = require("express-session");
 const BlogRouter = require("./routes/blogRoute");
 const otpGenerator = require("otp-generator");
+const cloudinary = require('cloudinary');
+
+cloudinary.v2.config({
+  cloud_name: 'dp1gjfgmg',
+  api_key: '973866118168666',
+  api_secret: 'hJTdoFtZiFavz4kS10rjKihjrOY',
+  secure: true,
+});
+
 
 dotenv.config();
 const app = express();
@@ -284,6 +293,24 @@ app.post("/add-blog", async (req, res) => {
     return res.status(500).json("Internal Server Error");
   }
 });
+
+//new route that takes the image i give and uploads it to cloudinary with id as email and returns the url
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); // replace 'uploads/' with your desired path
+
+app.post("/upload-image", upload.single('image'), async (req, res) => {
+  try {
+    console.log("Image Uploading");
+    const result = await cloudinary.v2.uploader.upload(req.file.path);
+    console.log("Image Uploaded");
+    return res.status(200).json({ id: result.public_id, url: result.url });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json("Internal Server Error");
+  }
+});
+
+  
 
 app.get("/fetch-blogs", async (req, res) => {
   try {
