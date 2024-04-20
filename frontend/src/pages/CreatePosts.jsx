@@ -86,13 +86,13 @@ const CreatePosts = () => {
   ];
   return (
     <div className="container2">
-      <h2>Create Post</h2>
       <div className="creatBlog">
         {/* <Button onClick={handleHome}>Back to Home</Button> */}
         <form className="create-blog-form" onSubmit={handleCreatePost}>
           <input
             type="text"
             placeholder="Title"
+            id="title"
             value={title}
             onChange={(e) => {
               setTitle(e.target.value);

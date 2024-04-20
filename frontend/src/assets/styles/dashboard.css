@@ -101,7 +101,9 @@
 .blog-buttons {
   display: flex;
   justify-content: space-between;
+  gap: 2rem;
   margin: 10px;
+  align-items: center;
 }
 .main button {
   background-color: rgb(161, 102, 255);
@@ -112,20 +114,27 @@
 }
 
 .creatBlog {
-  background-color: rgb(237, 244, 255);
+  /* background-color: rgb(237, 244, 255); */
   padding: 10px;
   margin: 10px;
   box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  width: 45vw;
+  /* width: 95vw; */
+}
+#title{
+  font-size: 4.5rem;
+}
+input#Image {
+  font-size: 27px;
+  padding-bottom: 13px;
 }
 .container2 {
   /* border: 2px solid black; */
   display: flex;
   justify-content: center;
-  align-self: center;
+  /* align-self: center; */
   /* margin: 100px; */
-  height: 85vh;
+  /* height: 85vh; */
   width: 99vw;
   padding: 10px;
   flex-direction: column;
@@ -143,7 +152,7 @@
   padding: 1px;
   margin: 1px;
   /* height: 200px; */
-  width: 42vw;
+  width: 90vw;
   margin-bottom: 10px;
 }
 .create-blog-form button {
@@ -177,6 +186,19 @@
   padding: 5px;
 }
 
+.edit-icon,
+.delete-icon {
+  /* height: 100px; */
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+.delete-icon {
+  color: red;
+}
+.ql-editor{
+  font-size: 1.2rem;
+}
+
 @media only screen and (max-width: 600px) {
   .blogs-container {
     padding: 0px;
@@ -208,7 +230,7 @@
   .ql-editor p {
     max-height: 20vh;
   }
-  .blog-header{
+  .blog-header {
     text-align: center;
   }
 }

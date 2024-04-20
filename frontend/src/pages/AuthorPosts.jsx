@@ -5,6 +5,10 @@ import { format } from "timeago.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, Form } from "react-bootstrap";
 import { toast } from "react-hot-toast";
+import { CiEdit } from "react-icons/ci";
+import { MdDeleteForever } from "react-icons/md";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const AuthorPosts = () => {
   const [blogsList, setBlogsList] = useState([]);
@@ -15,6 +19,34 @@ const AuthorPosts = () => {
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
   const [editImage, setEditImage] = useState("");
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image"],
+      ["clean"],
+    ],
+  };
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];
 
   useEffect(() => {
     axios
@@ -106,7 +138,8 @@ const AuthorPosts = () => {
                     {format(blog.createdAt)}
                   </p>
                   <div className="blog-buttons">
-                    <Button
+                    <CiEdit
+                      className="edit-icon"
                       onClick={() =>
                         handleEdit(
                           blog._id,
@@ -115,10 +148,12 @@ const AuthorPosts = () => {
                           blog.image
                         )
                       }
-                    >
-                      Edit
-                    </Button>
-                    <Button onClick={() => handleDelete(blog._id)}>Delete</Button>
+                    />
+
+                    <MdDeleteForever
+                      className="delete-icon"
+                      onClick={() => handleDelete(blog._id)}
+                    />
                   </div>
                 </div>
               </article>
@@ -153,11 +188,18 @@ const AuthorPosts = () => {
             />
             <Form.Group controlId="editDescription">
               <Form.Label>Description</Form.Label>
-              <Form.Control
+              {/* <Form.Control
                 as="textarea"
                 rows={3}
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
+              /> */}
+              <ReactQuill
+                value={editDescription}
+                onChange={setEditDescription}
+                modules={modules}
+                formats={formats}
+                placeholder="Description"
               />
             </Form.Group>
             <Form.Group controlId="editImage"></Form.Group>

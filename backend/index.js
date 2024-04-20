@@ -310,7 +310,6 @@ app.post("/upload-image", upload.single('image'), async (req, res) => {
   }
 });
 
-  
 
 app.get("/fetch-blogs", async (req, res) => {
   try {
