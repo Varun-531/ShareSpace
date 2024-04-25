@@ -25,11 +25,18 @@
 .Blog {
   /* background-color: rgb(237, 244, 255); */
 }
+.blog-content .ql-toolbar.ql-snow{
+  display: none;
+}
 .blog-footer {
   display: flex;
   justify-content: space-between;
   /* padding-top: 20px; */
   align-items: center;
+}
+
+#Description2 .ql-toolbar.ql-snow{
+  display: none;
 }
 .blog1-footer {
   /* margin-left: 10px; */

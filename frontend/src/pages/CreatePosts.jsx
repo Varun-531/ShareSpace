@@ -20,40 +20,70 @@ const CreatePosts = () => {
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
+  const [description_2, setDescription_2] = useState("");
+  // const handleCreatePost = (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("image", image);
+  //   axios
+  //     .post("http://localhost:3001/upload-image", formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     })
+  //     .then((res) => {
+  //       try {
+  //         console.log(res.data.url);
+  //         setImageUrl(res.data.url);
+  //         axios
+  //           .post("http://localhost:3001/add-blog", {
+  //             title: title,
+  //             description: description,
+  //             description_2: description_2,
+  //             image: res.data.url,
+  //             userId: userId,
+  //           })
+  //           .then((res) => {
+  //             if (res.status === 200) {
+  //               toast.success("Post created successfully");
+  //               navigate("/Dashboard");
+  //             }
+  //           })
+  //           .catch((err) => {
+  //             console.log(err);
+  //             toast.error("An error occurred. Please try again later.");
+  //           });
+  //       } catch (err) {
+  //         console.log(err);
+  //       }
+  //     });
+  // };
   const handleCreatePost = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("description_2", description_2);
+    formData.append("userId", userId);
+    if (image) {
+      formData.append("image", image);
+    }
+
     axios
-      .post("http://localhost:3001/upload-image", formData, {
+      .post("http://localhost:3001/add-blog", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        try {
-          console.log(res.data.url);
-          setImageUrl(res.data.url);
-          axios
-            .post("http://localhost:3001/add-blog", {
-              title: title,
-              description: description,
-              image: res.data.url,
-              userId: userId,
-            })
-            .then((res) => {
-              if (res.status === 200) {
-                toast.success("Post created successfully");
-                navigate("/Dashboard");
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-              toast.error("An error occurred. Please try again later.");
-            });
-        } catch (err) {
-          console.log(err);
+        if (res.status === 200) {
+          toast.success("Post created successfully");
+          navigate("/Dashboard");
         }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("An error occurred. Please try again later.");
       });
   };
 
@@ -114,6 +144,21 @@ const CreatePosts = () => {
             onChange={(e) => setImage(e.target.files[0])}
             accept="png, jpg, jpeg"
           />
+          {/* <input
+            type="text"
+            name="Description_2"
+            id="description"
+            placeholder="Enter Description"
+            onChange={setDescription_2}
+          /> */}
+          <ReactQuill
+            value={description_2}
+            id="Description2"
+            placeholder="Enter Description"
+            onChange={(content, delta, source, editor) => {
+              setDescription_2(editor.getHTML()); // Use editor.getHTML() to get the HTML content
+            }}
+          />
 
           <input type="hidden" value={userId} />
           <ReactQuill
@@ -121,7 +166,7 @@ const CreatePosts = () => {
             modules={modules}
             formats={formats}
             value={description}
-            placeholder="Description"
+            placeholder="Enter Content"
             onChange={setDescription}
           />
           <Button type="submit" className="btn primary">

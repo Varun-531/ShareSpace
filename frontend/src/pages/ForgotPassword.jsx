@@ -41,10 +41,11 @@ const ForgotPassword = () => {
         `http://localhost:3001/get-id/${email}`
       );
       if (otpResponse.status === 200) {
-        setId(otpResponse.data._id);
+        setId(otpResponse.data.id);
         setJwt(otpResponse.data.token);
 
-        console.log("ID:", otpResponse.data._id);
+        console.log("ID:", otpResponse.data.id);
+        console.log(otpResponse.data);
         console.log("JWT:", otpResponse.data.token);
         const otpVerificationResponse = await axios.post(
           "http://localhost:3001/otp-verification",
@@ -53,8 +54,8 @@ const ForgotPassword = () => {
         if (otpVerificationResponse.status === 200) {
           toast.success("OTP Verified Successfully");
           setReset(true);
-          temp(false);
-          second(false);
+          setTemp(false);
+          setSecond(false);
         } else {
           toast.error("Failed to verify OTP");
         }

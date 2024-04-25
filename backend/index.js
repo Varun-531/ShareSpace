@@ -277,16 +277,51 @@ app.get("/get-username/:id", async (req, res) => {
 
 // app.use("/blog", BlogRouter);
 //*****************************************blog routes*****************************************//
-app.post("/add-blog", async (req, res) => {
-  const { title, description, image, userId } = req.body;
-  const newBlog = new Blog({
-    title,
-    description,
-    image,
-    userId,
-  });
+// app.post("/add-blog", async (req, res) => {
+//   const { title, description, image, userId } = req.body;
+//   const newBlog = new Blog({
+//     title,
+//     description,
+//     description_2,
+//     image,
+//     userId,
+//   });
+//   try {
+//     await newBlog.save();
+//     console.log("Blog Created");
+//     return res.status(200).json(newBlog);
+//   } catch (err) {
+//     console.error(err);
+//     return res.status(500).json("Internal Server Error");
+//   }
+// });
+
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); // Ensure multer is properly configured
+
+app.post("/add-blog", upload.single('image'), async (req, res) => {
+  const { title, description, userId ,description_2} = req.body;
+  const image = req.file ? req.file.path : null; // Check if an image was uploaded
+
   try {
+    let imageUrl = null;
+    if (image) {
+      console.log("Image Uploading");
+      const result = await cloudinary.v2.uploader.upload(image);
+      console.log("Image Uploaded");
+      imageUrl = result.url;
+    }
+
+    const newBlog = new Blog({
+      title,
+      description,
+      image: imageUrl, // Assign the image URL to the blog
+      userId,
+      description_2
+    });
+
     await newBlog.save();
+    console.log("Blog Created");
     return res.status(200).json(newBlog);
   } catch (err) {
     console.error(err);
@@ -294,21 +329,22 @@ app.post("/add-blog", async (req, res) => {
   }
 });
 
-//new route that takes the image i give and uploads it to cloudinary with id as email and returns the url
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' }); // replace 'uploads/' with your desired path
 
-app.post("/upload-image", upload.single('image'), async (req, res) => {
-  try {
-    console.log("Image Uploading");
-    const result = await cloudinary.v2.uploader.upload(req.file.path);
-    console.log("Image Uploaded");
-    return res.status(200).json({ id: result.public_id, url: result.url });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json("Internal Server Error");
-  }
-});
+//new route that takes the image i give and uploads it to cloudinary with id as email and returns the url
+// const multer = require('multer');
+// const upload = multer({ dest: 'uploads/' }); // replace 'uploads/' with your desired path
+
+// app.post("/upload-image", upload.single('image'), async (req, res) => {
+//   try {
+//     console.log("Image Uploading");
+//     const result = await cloudinary.v2.uploader.upload(req.file.path);
+//     console.log("Image Uploaded");
+//     return res.status(200).json({ id: result.public_id, url: result.url });
+//   } catch (err) {
+//     console.error(err);
+//     return res.status(500).json("Internal Server Error");
+//   }
+// });
 
 
 app.get("/fetch-blogs", async (req, res) => {
@@ -341,12 +377,13 @@ app.delete("/delete-blog/:id", async (req, res) => {
 //update route
 app.post("/update-blog/:id", async (req, res) => {
   const { id } = req.params;
-  const { title, description, image } = req.body;
+  const { title, description, image ,description_2 } = req.body;
   try {
     const currentBlog = await Blog.findByIdAndUpdate(id, {
       title,
       description,
       image,
+      description_2,
     });
     return res.status(200).json(currentBlog);
   } catch (err) {

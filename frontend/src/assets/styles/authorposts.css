@@ -1,6 +1,6 @@
 .custom-modal {
   /* Add your custom styles here */
-  max-width: 600px;
+  max-width: 60vw !important;
   margin: 0 auto;
 }
 

@@ -49,8 +49,8 @@ const Dashboard = () => {
   const handleClicker = (id) => {
     navigate(`/dashboard/${id}`, { state: { id } });
   };
-  const shortenDescription = (description) =>
-    description.length > 200 ? description.substr(0, 200) + "..." : description;
+  const shortenDescription = (description_2) =>
+    description_2.length > 200 ? description_2.substr(0, 200) + "..." : description_2;
 
   const shortenTitle = (title) =>
     title.length > 23 ? title.substr(0, 23) + "..." : title;
@@ -76,7 +76,7 @@ const Dashboard = () => {
               </div>
               <div className="blog-info">
                 <h3>{shortenTitle(blog.title)}</h3>
-                <p>{shortenDescription(blog.description)}</p>
+                <p dangerouslySetInnerHTML={{ __html: shortenDescription(blog.description_2) }}></p>
               </div>
               <div className="blog-footer">
                 <div className="footer-one">
