@@ -2,22 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { format } from "timeago.js";
-import {Outlet} from 'react-router-dom'
+import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import HashLoader from "react-spinners/HashLoader";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [cookies] = useCookies(["user"]);
   const [username, setUsername] = useState("");
   const userId = cookies.userId;
   const [blogsList, setBlogsList] = useState([]);
   const [usernames, setUsernames] = useState({});
-
+  useEffect(() => {
+    // Simulating a delay with setTimeout to mimic data loading
+    setTimeout(() => {
+      setLoading(false); // Set loading to false after 4000 milliseconds (4 seconds)
+    }, 2000);
+  }, []);
   useEffect(() => {
     axios.get(`http://localhost:3001/get-username/${userId}`).then((res) => {
       setUsername(res.data.username);
@@ -47,19 +54,37 @@ const Dashboard = () => {
   // };
 
   const handleClicker = (id) => {
-    navigate(`/dashboard/${id}`, { state: { id } });
+    if (id) {
+      console.log("Navigating to blog with ID:", id);
+      navigate(`/dashboard/${id}`, { state: { id } });
+    } else {
+      console.error("Invalid blog ID:", id);
+    }
   };
+
   const shortenDescription = (description_2) =>
-    description_2.length > 200 ? description_2.substr(0, 200) + "..." : description_2;
+    description_2.length > 200
+      ? description_2.substr(0, 200) + "..."
+      : description_2;
 
   const shortenTitle = (title) =>
     title.length > 23 ? title.substr(0, 23) + "..." : title;
 
   return (
     <>
-    <div className="main">
-      {/* <h1>Welcome {username}</h1> */}
-      {/* <Button className="dash-button" onClick={handleCreateBlog}>
+      {loading && (
+        <div className="loader-overlay">
+          <HashLoader
+            loading={loading}
+            speedMultiplier={1}
+            size={30}
+            aria-label="Loading Spinner"
+          />
+        </div>
+      )}
+      <div className="main">
+        {/* <h1>Welcome {username}</h1> */}
+        {/* <Button className="dash-button" onClick={handleCreateBlog}>
         Create Post
       </Button>
       <br />
@@ -67,34 +92,45 @@ const Dashboard = () => {
         Your Posts
       </Button> */}
 
-      <div className="main-container">
-        <div className="blogs-container">
-          {blogsList.map((blog) => (
-            <article key={blog._id} className="blog">
-              <div className="blog-header">
-                <img className="blog-img" src={blog.image} alt={blog.title} />
-              </div>
-              <div className="blog-info">
-                <h3>{shortenTitle(blog.title)}</h3>
-                <p dangerouslySetInnerHTML={{ __html: shortenDescription(blog.description_2) }}></p>
-              </div>
-              <div className="blog-footer">
-                <div className="footer-one">
-                  <p className="p-author">
-                    <span className="span-author">Author : </span>{" "}
-                    {usernames[blog.userId]}
-                  </p>
-                  <p className="p-time">{format(blog.createdAt)}</p>
-                </div>
-                <Button onClick={() => handleClicker(blog._id)}>
-                  Read More
-                </Button>
-              </div>
-            </article>
-          ))}
+        <div className="main-container">
+          <div className="blogs-container">
+            {blogsList.map(
+              (blog) =>
+                blog._id && (
+                  <article key={blog._id} className="blog"  style={{ order: blog._createdAt }}>
+                    <div className="blog-header">
+                      <img
+                        className="blog-img"
+                        src={blog.image}
+                        alt={blog.title}
+                      />
+                    </div>
+                    <div className="blog-info">
+                      <h3>{shortenTitle(blog.title)}</h3>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: shortenDescription(blog.description_2),
+                        }}
+                      ></p>
+                    </div>
+                    <div className="blog-footer">
+                      <div className="footer-one">
+                        <p className="p-author">
+                          <span className="span-author">Author : </span>{" "}
+                          {usernames[blog.userId]}
+                        </p>
+                        <p className="p-time">{format(blog.createdAt)}</p>
+                      </div>
+                      <Button onClick={() => handleClicker(blog._id)}>
+                        view
+                      </Button>
+                    </div>
+                  </article>
+                )
+            )}
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

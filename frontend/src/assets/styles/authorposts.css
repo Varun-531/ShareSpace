@@ -42,7 +42,7 @@
   transform: none;
   margin-top: 5vh;
 }
-.form-label{
+.form-label {
   padding-bottom: 0;
   margin-bottom: 0px;
   font-weight: 600;
@@ -51,14 +51,37 @@
 .form-label {
   margin-bottom: 0px !important;
 }
-.form-control{
+.form-control {
   margin-bottom: 8px;
 }
-#editDescription{
+#editDescription {
   height: 250px;
   font-size: 12px;
 }
 
-#editTitle:focus{
+#editTitle:focus {
   border: none;
+}
+.modalfooter button:hover {
+  background-color: #272727 !important;
+}
+.modalfooter button {
+  font-size: 1rem;
+}
+.edit-icon,
+.delete-icon {
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.edit-icon:hover,
+.delete-icon:hover {
+  /* background-color: rgb(169, 169, 169); */
+  /* padding: 2px; */
+  transition: ease-in-out 0.4s;
+  /* box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.1); */
+  color: tomato;
+  /* color: white; */
+  /* border-radius: 2px; */
 }

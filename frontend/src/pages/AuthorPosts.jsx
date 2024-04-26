@@ -267,10 +267,12 @@ import { format } from "timeago.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, Form } from "react-bootstrap";
 import { toast } from "react-hot-toast";
-import { CiEdit } from "react-icons/ci";
+import { FaPencil } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import HashLoader from "react-spinners/HashLoader";
+
 
 const AuthorPosts = () => {
   const [blogsList, setBlogsList] = useState([]);
@@ -282,6 +284,7 @@ const AuthorPosts = () => {
   const [editDescription, setEditDescription] = useState("");
   const [editDescription_2, setEditDescription_2] = useState("");
   const [editImage, setEditImage] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const modules = {
     toolbar: [
@@ -293,7 +296,7 @@ const AuthorPosts = () => {
         { indent: "-1" },
         { indent: "+1" },
       ],
-      ["link", "image"],
+      ["link"],
       ["clean"],
     ],
   };
@@ -308,9 +311,13 @@ const AuthorPosts = () => {
     "bullet",
     "indent",
     "link",
-    "image",
+    // "image",
   ];
-
+  useEffect(()=>{
+    setTimeout(()=>{
+      setLoading(false)
+    },2000)
+  },[])
   useEffect(() => {
     axios
       .get(`http://localhost:3001/fetch-blogs/${userId}`)
@@ -381,7 +388,16 @@ const AuthorPosts = () => {
     title.length > 20 ? title.substr(0, 20) + "..." : title;
 
   return (
-    <div>
+    <div>{loading && (
+      <div className="loader-overlay">
+        <HashLoader
+          loading={loading}
+          speedMultiplier={1}
+          size={30}
+          aria-label="Loading Spinner"
+        />
+      </div>
+    )}
       <h1 id="yourposts">Your Posts</h1>
       <div className="main-container">
         <div className="blogs-container">
@@ -403,7 +419,8 @@ const AuthorPosts = () => {
                     {format(blog.createdAt)}
                   </p>
                   <div className="blog-buttons">
-                    <CiEdit
+                  
+                    <FaPencil
                       className="edit-icon"
                       onClick={() =>
                         handleEdit(
@@ -415,11 +432,12 @@ const AuthorPosts = () => {
                         )
                       }
                     />
-
-                    <MdDeleteForever
+                    {/* <MdDeleteForever
                       className="delete-icon"
                       onClick={() => handleDelete(blog._id)}
-                    />
+                    /> */}
+                    <i className="fi fi-rr-trash delete-icon" onClick={() => handleDelete(blog._id)}>
+                    </i>
                   </div>
                 </div>
               </article>
@@ -456,6 +474,7 @@ const AuthorPosts = () => {
             <Form.Group controlId="editDescription">
               <Form.Label>Description</Form.Label>
               <ReactQuill
+              className="edit_description_2"
                 value={editDescription_2}
                 onChange={(html) => setEditDescription_2(html)} // Change this line
                 modules={modules}
@@ -464,7 +483,7 @@ const AuthorPosts = () => {
               />
             </Form.Group>
             <Form.Group controlId="editDescription">
-              <Form.Label>Description</Form.Label>
+              <Form.Label>Content</Form.Label>
               <ReactQuill
                 value={editDescription}
                 onChange={(html) => setEditDescription(html)} // Change this line
@@ -475,7 +494,7 @@ const AuthorPosts = () => {
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="modalfooter">
           <Button onClick={handleCloseModal}>Close</Button>
           <Button onClick={handleSaveEdit}>Save Changes</Button>
         </Modal.Footer>

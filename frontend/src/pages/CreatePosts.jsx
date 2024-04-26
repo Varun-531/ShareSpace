@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,9 +8,11 @@ import { toast } from "react-hot-toast";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
 
 const CreatePosts = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [cookies] = useCookies(["user"]);
   const userId = cookies.userId;
   const handleHome = () => {
@@ -58,6 +60,11 @@ const CreatePosts = () => {
   //       }
   //     });
   // };
+  useEffect(()=>{
+    setTimeout(()=>{
+      setLoading(false);
+    },2000)
+  },[])
   const handleCreatePost = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -97,7 +104,7 @@ const CreatePosts = () => {
         { indent: "-1" },
         { indent: "+1" },
       ],
-      ["link", "image"],
+      ["link"],
       ["clean"],
     ],
   };
@@ -112,69 +119,81 @@ const CreatePosts = () => {
     "bullet",
     "indent",
     "link",
-    "image",
   ];
   return (
-    <div className="container2">
-      <div className="creatBlog">
-        {/* <Button onClick={handleHome}>Back to Home</Button> */}
-        <form className="create-blog-form" onSubmit={handleCreatePost}>
-          <input
-            type="text"
-            placeholder="Title"
-            id="title"
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
+    <>
+    {loading && (
+        <div className="loader-overlay">
+          <HashLoader
+            loading={loading}
+            speedMultiplier={1}
+            size={30}
+            aria-label="Loading Spinner"
           />
-          <br />
-          {/* <input
-            type="text"
-            placeholder="Image URL"
-            value={image}
-            onChange={(e) => {
-              setImage(e.target.value);
-            }}
-          /> */}
-          <input
-            type="file"
-            name="Image"
-            id="Image"
-            onChange={(e) => setImage(e.target.files[0])}
-            accept="png, jpg, jpeg"
-          />
-          {/* <input
-            type="text"
-            name="Description_2"
-            id="description"
-            placeholder="Enter Description"
-            onChange={setDescription_2}
-          /> */}
-          <ReactQuill
-            value={description_2}
-            id="Description2"
-            placeholder="Enter Description"
-            onChange={(content, delta, source, editor) => {
-              setDescription_2(editor.getHTML()); // Use editor.getHTML() to get the HTML content
-            }}
-          />
+        </div>
+      )}
+      <div className="container2">
+        <div className="creatBlog">
+          {/* <Button onClick={handleHome}>Back to Home</Button> */}
+          <form className="create-blog-form" onSubmit={handleCreatePost}>
+            <input
+              type="text"
+              placeholder="Title"
+              id="title"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
+            <br />
+            {/* <input
+          type="text"
+          placeholder="Image URL"
+          value={image}
+          onChange={(e) => {
+            setImage(e.target.value);
+          }}
+        /> */}
+            <input
+              type="file"
+              name="Image"
+              id="Image"
+              onChange={(e) => setImage(e.target.files[0])}
+              accept="png, jpg, jpeg"
+            />
+            {/* <input
+          type="text"
+          name="Description_2"
+          id="description"
+          placeholder="Enter Description"
+          onChange={setDescription_2}
+        /> */}
+            <ReactQuill
+              value={description_2}
+              id="Description2"
+              className="description2"
+              placeholder="Enter Description"
+              onChange={(content, delta, source, editor) => {
+                setDescription_2(editor.getHTML()); // Use editor.getHTML() to get the HTML content
+              }}
+            />
 
-          <input type="hidden" value={userId} />
-          <ReactQuill
-            className="description"
-            modules={modules}
-            formats={formats}
-            value={description}
-            placeholder="Enter Content"
-            onChange={setDescription}
-          />
-          <Button type="submit" className="btn primary">
-            Create
-          </Button>
-        </form>
+            <input type="hidden" value={userId} />
+            <ReactQuill
+              className="description"
+              modules={modules}
+              formats={formats}
+              value={description}
+              placeholder="Enter Content"
+              onChange={setDescription}
+            />
+            <Button type="submit" className="btn primary">
+              Create
+            </Button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

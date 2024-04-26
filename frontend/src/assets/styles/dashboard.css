@@ -7,10 +7,12 @@
 
   /* background-color: bisque; */
 }
+.main{
+  background-color: rgb(233, 233, 233);
+}
 .blogs-container {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   flex-direction: row;
   /* justify-content: center; */
   gap: 30px;
@@ -37,7 +39,7 @@
   align-items: center;
 }
 .blog-img {
-  height: 31vh;
+  /* height: 31vh; */
   width: 88vw;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -47,6 +49,9 @@
 .author-bottom {
   bottom: 0;
 }
+.edit_description_2 .ql-toolbar{
+  display: none;
+}
 .blog {
   background-color: rgb(238, 253, 255);
   /* border: 1px solid black; */
@@ -54,7 +59,7 @@
   margin: 5px;
   /* padding: 5px; */
   width: 25vw;
-  height: 65vh;
+  height: 100%;
   /* text-align: justify; */
 }
 .blog:hover {
@@ -142,7 +147,7 @@ input#Image {
   align-items: center;
 }
 .creatBlog input {
-  width: 95%;
+  width: 99%;
   padding: 1px;
   margin: 10px;
 }
@@ -173,7 +178,7 @@ input#Image {
   min-width: 60px;
 }
 .blog2 {
-  height: 67vh;
+  height: 100%;
 }
 
 #yourposts {
@@ -189,11 +194,11 @@ input#Image {
 .edit-icon,
 .delete-icon {
   /* height: 100px; */
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   cursor: pointer;
 }
 .delete-icon {
-  color: red;
+ /* color: red;*/
 }
 .ql-editor{
   font-size: 1.2rem;
