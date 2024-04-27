@@ -419,10 +419,7 @@ const AuthorPosts = () => {
                     {format(blog.createdAt)}
                   </p>
                   <div className="blog-buttons">
-                  
-                    <FaPencil
-                      className="edit-icon"
-                      onClick={() =>
+                  <i className="fi fi-rr-file-edit edit-icon"  onClick={() =>
                         handleEdit(
                           blog._id,
                           blog.title,
@@ -430,8 +427,7 @@ const AuthorPosts = () => {
                           blog.image,
                           blog.description_2 // Pass description_2 to handleEdit
                         )
-                      }
-                    />
+                      }></i>
                     {/* <MdDeleteForever
                       className="delete-icon"
                       onClick={() => handleDelete(blog._id)}

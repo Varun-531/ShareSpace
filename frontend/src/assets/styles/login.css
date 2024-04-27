@@ -78,6 +78,9 @@ input {
 .login-form button:hover {
   background-color: #272727 !important;
 }
+.abcd a {
+  text-decoration: none;
+}
 /* .abcd .button{
   text-decoration: none;
   color: white;

@@ -17,7 +17,7 @@ const Blog = () => {
     // Simulating a delay with setTimeout to mimic data loading
     setTimeout(() => {
       setLoading(false); // Set loading to false after 4000 milliseconds (4 seconds)
-    }, 4000);
+    }, 2000);
   }, []);
   useEffect(() => {
     axios

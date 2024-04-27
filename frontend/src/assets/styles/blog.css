@@ -66,6 +66,16 @@
   /* margin-left: 10px; */
   /* margin-right: 10px; */
 }
+.blog-content .ql-toolbar.ql-snow + .ql-container.ql-snow{
+  /* border-bottom: 1.4px solid black; */
+  border: none;
+  border-right: none;
+  padding: none;
+  /* border-bottom: 1.5px solid black; */
+  /* width: 90vw; */
+  /* margin-left: 10px; */
+  /* margin-right: 10px; */
+}
 .blog1-footer {
   /* margin-left: 10px; */
   display: flex;

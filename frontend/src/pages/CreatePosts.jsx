@@ -19,52 +19,17 @@ const CreatePosts = () => {
     navigate("/Dashboard");
   };
   const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
   const [description_2, setDescription_2] = useState("");
-  // const handleCreatePost = (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append("image", image);
-  //   axios
-  //     .post("http://localhost:3001/upload-image", formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     })
-  //     .then((res) => {
-  //       try {
-  //         console.log(res.data.url);
-  //         setImageUrl(res.data.url);
-  //         axios
-  //           .post("http://localhost:3001/add-blog", {
-  //             title: title,
-  //             description: description,
-  //             description_2: description_2,
-  //             image: res.data.url,
-  //             userId: userId,
-  //           })
-  //           .then((res) => {
-  //             if (res.status === 200) {
-  //               toast.success("Post created successfully");
-  //               navigate("/Dashboard");
-  //             }
-  //           })
-  //           .catch((err) => {
-  //             console.log(err);
-  //             toast.error("An error occurred. Please try again later.");
-  //           });
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     });
-  // };
-  useEffect(()=>{
-    setTimeout(()=>{
+
+  useEffect(() => {
+    setTimeout(() => {
       setLoading(false);
-    },2000)
-  },[])
+    }, 2000);
+  }, []);
+
   const handleCreatePost = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -108,6 +73,7 @@ const CreatePosts = () => {
       ["clean"],
     ],
   };
+
   const formats = [
     "header",
     "bold",
@@ -120,9 +86,17 @@ const CreatePosts = () => {
     "indent",
     "link",
   ];
+
+  // Update the image input change handler to set the imageUrl state
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setImageUrl(URL.createObjectURL(file)); // Create a temporary URL for the selected image
+  };
+
   return (
     <>
-    {loading && (
+      {loading && (
         <div className="loader-overlay">
           <HashLoader
             loading={loading}
@@ -146,28 +120,15 @@ const CreatePosts = () => {
               }}
             />
             <br />
-            {/* <input
-          type="text"
-          placeholder="Image URL"
-          value={image}
-          onChange={(e) => {
-            setImage(e.target.value);
-          }}
-        /> */}
+            {/* Display the selected image */}
+            {imageUrl && <img src={imageUrl} alt="Selected" style={{ maxWidth: "100%" }} />}
             <input
               type="file"
               name="Image"
               id="Image"
-              onChange={(e) => setImage(e.target.files[0])}
+              onChange={handleImageChange}
               accept="png, jpg, jpeg"
             />
-            {/* <input
-          type="text"
-          name="Description_2"
-          id="description"
-          placeholder="Enter Description"
-          onChange={setDescription_2}
-        /> */}
             <ReactQuill
               value={description_2}
               id="Description2"

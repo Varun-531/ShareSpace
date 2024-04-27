@@ -1,6 +1,6 @@
 .main-container {
   margin: 10px;
-  display: flex;
+  display: flex;  
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -8,7 +8,11 @@
   /* background-color: bisque; */
 }
 .main{
-  background-color: rgb(233, 233, 233);
+  /* background-color: rgb(233, 233, 233); */
+  /* background-image: url("../images"); */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .blogs-container {
   display: flex;

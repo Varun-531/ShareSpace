@@ -7,10 +7,12 @@ import { Button } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["user"]);
   const [jwt, setJwt] = useState("");
   const [otp, setOtp] = useState("");
@@ -20,11 +22,13 @@ const ForgotPassword = () => {
   const [temp, setTemp] = useState(true);
   const [second, setSecond] = useState(false);
   const handleLogin = async (e) => {
+    setLoading(true);
     setFirst(false);
     e.preventDefault();
     axios
       .post("http://localhost:3001/email-verification", { email })
       .then((res) => {
+        setLoading(false);
         setFirst(false);
         if (res.status === 200) {
           toast.success("OTP Sent Successfully");
@@ -69,6 +73,16 @@ const ForgotPassword = () => {
   };
 
   return (
+    <>{loading && (
+      <div className="loader-overlay">
+          <HashLoader
+            loading={loading}
+            speedMultiplier={1}
+            size={30}
+            aria-label="Loading Spinner"
+          />
+        </div> 
+    )}
     <div className="container1">
       <div className="login-container">
         <form className="login-form" onSubmit={handleLogin}>
@@ -100,14 +114,16 @@ const ForgotPassword = () => {
                 }}
                 autoComplete="off"
               />
-              {temp && (<Button
-                variant="primary"
-                className="btt"
-                type="submit"
-                onClick={handleOTP}
-              >
-                Verify OTP
-              </Button>)}
+              {temp && (
+                <Button
+                  variant="primary"
+                  className="btt"
+                  type="submit"
+                  onClick={handleOTP}
+                >
+                  Verify OTP
+                </Button>
+              )}
             </>
           )}
           {reset && (
@@ -115,10 +131,13 @@ const ForgotPassword = () => {
               <Link to={`/reset-password/${id}/${jwt}`}>Reset Password</Link>
             </Button>
           )}
-          <p>Back to <Link to={"/login"}>Login</Link></p>
+          <p>
+            Back to <Link to={"/login"}>Login</Link>
+          </p>
         </form>
       </div>
     </div>
+    </>
   );
 };
 

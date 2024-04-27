@@ -7,19 +7,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useCookies } from "react-cookie";
-import HashLoader from "react-spinners/HashLoader";
+// import HashLoader from "react-spinners/HashLoader";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [password, setPassword] = useState("");
   const [cookies, setCookie] = useCookies(["user"]);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2000);
+  // }, []);
   const handleLogin = (e) => {
     e.preventDefault();
     axios
@@ -57,7 +57,7 @@ const Login = () => {
   };
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <div className="loader-overlay">
           <HashLoader
             loading={loading}
@@ -66,7 +66,7 @@ const Login = () => {
             aria-label="Loading Spinner"
           />
         </div>
-      )}
+      )} */}
       <div className="container1">
         <div className="login-container">
           <form className="login-form" onSubmit={handleLogin}>
