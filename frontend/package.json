@@ -23,6 +23,7 @@
     "react-spinners": "^0.13.8",
     "react-typewriter-hook": "^1.0.2",
     "three": "^0.163.0",
+    "timeago-react": "^3.0.6",
     "timeago.js": "^4.0.2",
     "vanta": "^0.5.24",
     "web-vitals": "^2.1.4"
