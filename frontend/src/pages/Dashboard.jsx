@@ -27,6 +27,7 @@ const Dashboard = () => {
   }, []);
   useEffect(() => {
     axios.get(`http://localhost:3001/get-username/${userId}`).then((res) => {
+      // setLoading(true);
       setUsername(res.data.username);
     });
 
@@ -38,6 +39,7 @@ const Dashboard = () => {
         axios
           .get(`http://localhost:3001/get-username/${blog.userId}`)
           .then((res) => {
+            // setLoading(false);
             setUsernames((prevUsernames) => ({
               ...prevUsernames,
               [blog.userId]: res.data.username,
@@ -106,7 +108,7 @@ const Dashboard = () => {
                       />
                     </div>
                     <div className="blog-info">
-                      <h3>{shortenTitle(blog.title)}</h3>
+                      <h3 className="truncate">{blog.title}</h3>
                       <p
                         dangerouslySetInnerHTML={{
                           __html: shortenDescription(blog.description_2),

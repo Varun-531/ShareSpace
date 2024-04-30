@@ -31,6 +31,7 @@ const CreatePosts = () => {
   }, []);
 
   const handleCreatePost = (e) => {
+    setLoading(true);
     e.preventDefault();
     const formData = new FormData();
     formData.append("title", title);
@@ -49,6 +50,7 @@ const CreatePosts = () => {
       })
       .then((res) => {
         if (res.status === 200) {
+          setLoading(false);
           toast.success("Post created successfully");
           navigate("/Dashboard");
         }
