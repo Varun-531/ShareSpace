@@ -1,12 +1,13 @@
 # ShareSpace
-![alt text](image.png)
+<video controls src="Recording 2024-05-01 195317.mp4" title="Title"></video>
 ShareSpace is a dynamic and user-friendly React blog platform designed to simplify the process of creating, sharing, and managing blog content. It offers a range of features to enhance user experience and security.
-
+![alt text](image-2.png)
+![alt text](image-1.png)
 ## Features
 
-- **React Blog Page**: Create, read, and share blog posts seamlessly with our React-based interface.
+- **React Blog Page**: Create and read blog posts seamlessly with our React-based interface.
 - **JWT Token Authentication**: Ensure secure access to your account with JSON Web Tokens.
-- **Nodemailer Integration**: Receive notifications, confirmations, and password reset emails effortlessly.
+- **Nodemailer Integration**: Receive notifications and password reset emails effortlessly.
 - **Forgot Password Functionality with OTP**: Reset your password securely with one-time codes sent to your email.
 - **Toastify for Notifications**: Stay informed about actions and events within the application with user-friendly notifications.
 - **ReactQuill for Writing Blogs**: Craft visually appealing and feature-rich blog posts using our rich text editor.
