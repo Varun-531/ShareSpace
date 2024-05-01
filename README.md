@@ -1,5 +1,5 @@
 # ShareSpace
-<video controls src="Recording 2024-05-01 195317.mp4" title="Title"></video>
+![alt text](image-3.png)
 ShareSpace is a dynamic and user-friendly React blog platform designed to simplify the process of creating, sharing, and managing blog content. It offers a range of features to enhance user experience and security.
 ![alt text](image-2.png)
 ![alt text](image-1.png)
