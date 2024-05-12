@@ -10,13 +10,12 @@ const Blog = () => {
   const [blogData, setBlogData] = useState({});
   const [author, setAuthor] = useState("");
   const location = useLocation();
-  const [loading, setLoading] = useState(true); // Initially set loading to true
+  const [loading, setLoading] = useState(true); 
 
   const { id } = location.state;
   useEffect(() => {
-    // Simulating a delay with setTimeout to mimic data loading
     setTimeout(() => {
-      setLoading(false); // Set loading to false after 4000 milliseconds (4 seconds)
+      setLoading(false);
     }, 2000);
   }, []);
   useEffect(() => {
@@ -24,7 +23,6 @@ const Blog = () => {
       .get(`http://localhost:3001/fetch-blog/${id}`)
       .then((res) => {
         setBlogData(res.data);
-        // console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
