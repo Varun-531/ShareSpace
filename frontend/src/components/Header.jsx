@@ -12,7 +12,7 @@ const Header = () => {
       removeCookie("token");
       removeCookie("userId");
       toast.success("You have been logged out");
-      navigate("/login");
+      navigate("/");
     } else {
       toast.error("You are not logged in");
     }
