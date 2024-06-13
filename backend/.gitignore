@@ -13,7 +13,7 @@ dist/
 .vscode/
 
 # Compiled JavaScript
-*.js
+
 
 # Dependency lock files
 package-lock.json
