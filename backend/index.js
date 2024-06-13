@@ -229,34 +229,27 @@ app.post("/otp-verification", async (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = new User({
-    username,
-    email,
-    password: hashedPassword,
-  });
-  await newUser
-    .save()
-    .then(() => {
-      const data = {
-        user: {
-          id: newUser._id,
-        },
-      };
-      const token = jwt.sign(data, "Project-X");
-      console.log("User created successfully");
-      res.json({ success: true, token });
-    })
-    .catch((err) => {
-      if (err.code === 11000) {
-        // MongoDB duplicate key error code
-        res.status(400).json("Username or email already exists");
-      } else {
-        console.error(err);
-        res.status(500).json("Internal Server Error");
-      }
+  const { email, password, username } = req.body;
+  if (!password) {
+    return res.status(400).json({ message: "Password is required" });
+  }
+  const user = await User.findOne({ email });
+  if (user) {
+    return res.status(400).json({ message: "Email already exists" });
+  }
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({
+      email,
+      password: hashedPassword,
+      username,
     });
+    await newUser.save();
+    return res.json(newUser);
+  } catch (error) {
+    console.error("Error during registration:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 });
 
 app.post("/forgot-password", async (req, res) => {
