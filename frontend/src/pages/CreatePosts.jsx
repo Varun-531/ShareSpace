@@ -43,9 +43,10 @@ const CreatePosts = () => {
     }
 
     axios
-      .post("http://localhost:3001/add-blog", formData, {
+      .post(process.env.REACT_APP_API + "/add-blog", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${cookies.token}`,
         },
       })
       .then((res) => {
@@ -53,11 +54,13 @@ const CreatePosts = () => {
           setLoading(false);
           toast.success("Post created successfully");
           navigate("/Dashboard");
+          setLoading(false);
         }
       })
       .catch((err) => {
         console.log(err);
         toast.error("An error occurred. Please try again later.");
+        setLoading(false);
       });
   };
 
@@ -123,7 +126,9 @@ const CreatePosts = () => {
             />
             <br />
             {/* Display the selected image */}
-            {imageUrl && <img src={imageUrl} alt="Selected" style={{ maxWidth: "100%" }} />}
+            {imageUrl && (
+              <img src={imageUrl} alt="Selected" style={{ maxWidth: "100%" }} />
+            )}
             <input
               type="file"
               name="Image"

@@ -1,51 +1,45 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useCookies } from "react-cookie";
-// import HashLoader from "react-spinners/HashLoader";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  // const [loading, setLoading] = useState(true);
   const [password, setPassword] = useState("");
   const [cookies, setCookie] = useCookies(["user"]);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 2000);
-  // }, []);
+
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/login", {
+      .post(process.env.REACT_APP_API + "/login", {
         email: email,
         password: password,
       })
       .then((res) => {
         if (res.status === 200) {
           const userId = res.data.userId;
-          //store userId in cookie
           setCookie("userId", userId, { path: "/", maxAge: 24 * 60 * 60 });
-          console.log(userId);
-
-          localStorage.setItem("auth-token", res.data.token);
+          setCookie("token", res.data.token, {
+            path: "/",
+            maxAge: 3 * 60 * 60,
+          });
           axios
-            .get(`http://localhost:3001/get-username/${userId}`)
+            .get(process.env.REACT_APP_API + `/get-username/${userId}`)
             .then((res) => {
-              console.log(res.data.username);
               toast.success("Welcome " + res.data.username);
+              navigate("/dashboard");
+            })
+            .catch((err) => {
+              console.error("Error fetching username:", err);
             });
-          navigate("/Dashboard");
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error("Login error:", err);
         if (err.response && err.response.status === 401) {
           toast.error("Email or password is incorrect");
         } else if (err.response && err.response.status === 404) {
@@ -55,57 +49,42 @@ const Login = () => {
         }
       });
   };
+
   return (
-    <>
-      {/* {loading && (
-        <div className="loader-overlay">
-          <HashLoader
-            loading={loading}
-            speedMultiplier={1}
-            size={30}
-            aria-label="Loading Spinner"
+    <div className="container1">
+      <div className="login-container">
+        <form className="login-form" onSubmit={handleLogin}>
+          <h1>Login</h1>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="off"
           />
-        </div>
-      )} */}
-      <div className="container1">
-        <div className="login-container">
-          <form className="login-form" onSubmit={handleLogin}>
-            <h1>Login</h1>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              autoComplete="off"
-            />
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              autoComplete="off"
-            />
-            <Button variant="primary" className="btt" type="submit">
-              Login
-            </Button>
-            <p>
-              Dont have an account? <Link to={"/register"}>register</Link>
-            </p>
-            <p>
-              <Link to={"/forgot-password"}>Forgot Password?</Link>
-            </p>
-          </form>
-        </div>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="off"
+          />
+          <Button variant="primary" className="btt" type="submit">
+            Login
+          </Button>
+          <p>
+            Don't have an account? <Link to={"/register"}>Register</Link>
+          </p>
+          <p>
+            <Link to={"/forgot-password"}>Forgot Password?</Link>
+          </p>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 

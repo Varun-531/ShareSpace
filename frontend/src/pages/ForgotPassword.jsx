@@ -26,7 +26,7 @@ const ForgotPassword = () => {
     setFirst(false);
     e.preventDefault();
     axios
-      .post("http://localhost:3001/email-verification", { email })
+      .post(process.env.REACT_APP_API + "/email-verification", { email })
       .then((res) => {
         setLoading(false);
         setFirst(false);
@@ -42,7 +42,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const otpResponse = await axios.get(
-        `http://localhost:3001/get-id/${email}`
+        process.env.REACT_APP_API + `/get-id/${email}`
       );
       if (otpResponse.status === 200) {
         setId(otpResponse.data.id);
@@ -52,7 +52,7 @@ const ForgotPassword = () => {
         console.log(otpResponse.data);
         console.log("JWT:", otpResponse.data.token);
         const otpVerificationResponse = await axios.post(
-          "http://localhost:3001/otp-verification",
+          process.env.REACT_APP_API + "/otp-verification",
           { email, otp }
         );
         if (otpVerificationResponse.status === 200) {
@@ -73,70 +73,71 @@ const ForgotPassword = () => {
   };
 
   return (
-    <>{loading && (
-      <div className="loader-overlay">
+    <>
+      {loading && (
+        <div className="loader-overlay">
           <HashLoader
             loading={loading}
             speedMultiplier={1}
             size={30}
             aria-label="Loading Spinner"
           />
-        </div> 
-    )}
-    <div className="container1">
-      <div className="login-container">
-        <form className="login-form" onSubmit={handleLogin}>
-          <h3 style={{ textAlign: "center" }}>Forgot Password</h3>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Enter Email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            autoComplete="off"
-          />
-          {first && (
-            <Button variant="primary" className="btt" type="submit">
-              Send OTP
-            </Button>
-          )}
-          {second && (
-            <>
-              <input
-                type="text"
-                placeholder="Enter OTP"
-                value={otp}
-                onChange={(e) => {
-                  setOtp(e.target.value);
-                }}
-                autoComplete="off"
-              />
-              {temp && (
-                <Button
-                  variant="primary"
-                  className="btt"
-                  type="submit"
-                  onClick={handleOTP}
-                >
-                  Verify OTP
-                </Button>
-              )}
-            </>
-          )}
-          {reset && (
-            <Button className="abcd">
-              <Link to={`/reset-password/${id}/${jwt}`}>Reset Password</Link>
-            </Button>
-          )}
-          <p>
-            Back to <Link to={"/login"}>Login</Link>
-          </p>
-        </form>
+        </div>
+      )}
+      <div className="container1">
+        <div className="login-container">
+          <form className="login-form" onSubmit={handleLogin}>
+            <h3 style={{ textAlign: "center" }}>Forgot Password</h3>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              autoComplete="off"
+            />
+            {first && (
+              <Button variant="primary" className="btt" type="submit">
+                Send OTP
+              </Button>
+            )}
+            {second && (
+              <>
+                <input
+                  type="text"
+                  placeholder="Enter OTP"
+                  value={otp}
+                  onChange={(e) => {
+                    setOtp(e.target.value);
+                  }}
+                  autoComplete="off"
+                />
+                {temp && (
+                  <Button
+                    variant="primary"
+                    className="btt"
+                    type="submit"
+                    onClick={handleOTP}
+                  >
+                    Verify OTP
+                  </Button>
+                )}
+              </>
+            )}
+            {reset && (
+              <Button className="abcd">
+                <Link to={`/reset-password/${id}/${jwt}`}>Reset Password</Link>
+              </Button>
+            )}
+            <p>
+              Back to <Link to={"/login"}>Login</Link>
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
     </>
   );
 };

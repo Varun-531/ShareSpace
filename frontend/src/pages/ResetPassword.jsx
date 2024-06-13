@@ -21,7 +21,7 @@ const ResetPassword = () => {
     } else {
       e.preventDefault();
       axios
-        .post(`http://localhost:3001/reset-password/${id}/${token}`, {
+        .post(process.env.REACT_APP_API + `/reset-password/${id}/${token}`, {
           password: password,
         })
         .then((res) => {

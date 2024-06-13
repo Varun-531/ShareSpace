@@ -10,7 +10,7 @@ const Blog = () => {
   const [blogData, setBlogData] = useState({});
   const [author, setAuthor] = useState("");
   const location = useLocation();
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   const { id } = location.state;
   useEffect(() => {
@@ -20,7 +20,7 @@ const Blog = () => {
   }, []);
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/fetch-blog/${id}`)
+      .get(process.env.REACT_APP_API + `/fetch-blog/${id}`)
       .then((res) => {
         setBlogData(res.data);
       })
@@ -31,7 +31,7 @@ const Blog = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/get-username/${blogData.userId}`)
+      .get(process.env.REACT_APP_API + `/get-username/${blogData.userId}`)
       .then((res) => {
         setAuthor(res.data.username);
       })
@@ -42,8 +42,8 @@ const Blog = () => {
 
   return (
     <>
-    {loading && (
-      <div className="loader-overlay">
+      {loading && (
+        <div className="loader-overlay">
           <HashLoader
             loading={loading}
             speedMultiplier={1}
@@ -51,27 +51,27 @@ const Blog = () => {
             aria-label="Loading Spinner"
           />
         </div>
-    )}
-    <div className="Blog">
-      <div className="container4">
-        <h3 className="blog-header">{blogData.title}</h3>
-        <img className="blog-image" src={blogData.image} alt="Blog" />
-        <ReactQuill
-          className="blog-content"
-          value={blogData.description || ""}
-          readOnly={true}
-        />
-        <div className="blog1-footer">
-          <div>
-            <span className="span-author">Author :</span> {author}
-          </div>
-          <div className="blog-footer2">
-            <span className="span-author">Created : </span>
-            {format(blogData.createdAt)}
+      )}
+      <div className="Blog">
+        <div className="container4">
+          <h3 className="blog-header">{blogData.title}</h3>
+          <img className="blog-image" src={blogData.image} alt="Blog" />
+          <ReactQuill
+            className="blog-content"
+            value={blogData.description || ""}
+            readOnly={true}
+          />
+          <div className="blog1-footer">
+            <div>
+              <span className="span-author">Author :</span> {author}
+            </div>
+            <div className="blog-footer2">
+              <span className="span-author">Created : </span>
+              {format(blogData.createdAt)}
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

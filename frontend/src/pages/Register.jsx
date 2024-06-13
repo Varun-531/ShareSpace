@@ -24,7 +24,7 @@ const Register = () => {
     setOtpBox(true);
     try {
       axios
-        .post("http://localhost:3001/email-verification", { email })
+        .post(process.env.REACT_APP_API + "3001/email-verification", { email })
         .then((res) => {
           if (res.status === 200) {
             toast.success("OTP sent successfully");
@@ -40,7 +40,7 @@ const Register = () => {
   };
   const handleOTPVerification = async () => {
     axios
-      .post(`http://localhost:3001/otp-verification`, { email, otp })
+      .post(process.env.REACT_APP_API + `/otp-verification`, { email, otp })
       .then((res) => {
         if (res.status === 200) {
           toast.success("OTP verified successfully");
@@ -62,7 +62,7 @@ const Register = () => {
       toast.error("Password should be atleast 6 characters long");
     } else if (password === confirmpassword) {
       try {
-        await axios.post("http://localhost:3001/register", {
+        await axios.post(process.env.REACT_APP_API + "/register", {
           username,
           email,
           password,

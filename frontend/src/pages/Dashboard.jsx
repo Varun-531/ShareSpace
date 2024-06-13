@@ -26,18 +26,20 @@ const Dashboard = () => {
     }, 2000);
   }, []);
   useEffect(() => {
-    axios.get(`http://localhost:3001/get-username/${userId}`).then((res) => {
-      // setLoading(true);
-      setUsername(res.data.username);
-    });
+    axios
+      .get(process.env.REACT_APP_API + `/get-username/${userId}`)
+      .then((res) => {
+        // setLoading(true);
+        setUsername(res.data.username);
+      });
 
-    axios.get(`http://localhost:3001/fetch-blogs`).then((response) => {
+    axios.get(process.env.REACT_APP_API + `/fetch-blogs`).then((response) => {
       setBlogsList(response.data);
 
       // Fetch usernames for each blog author
       response.data.forEach((blog) => {
         axios
-          .get(`http://localhost:3001/get-username/${blog.userId}`)
+          .get(process.env.REACT_APP_API + `/get-username/${blog.userId}`)
           .then((res) => {
             // setLoading(false);
             setUsernames((prevUsernames) => ({
@@ -99,7 +101,11 @@ const Dashboard = () => {
             {blogsList.map(
               (blog) =>
                 blog._id && (
-                  <article key={blog._id} className="blog"  style={{ order: blog._createdAt }}>
+                  <article
+                    key={blog._id}
+                    className="blog"
+                    style={{ order: blog._createdAt }}
+                  >
                     <div className="blog-header">
                       <img
                         className="blog-img"
