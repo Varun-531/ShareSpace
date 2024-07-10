@@ -1,6 +1,6 @@
 .custom-modal {
   /* Add your custom styles here */
-  max-width: 60vw !important;
+  width: 60vw !important;
   margin: 0 auto;
 }
 
@@ -15,7 +15,6 @@
 }
 
 .custom-modal .modal-header {
-  /* Header styles */
   background-color: #f8f9fa;
   color: #333;
   border-bottom: 1px solid #dee2e6;
@@ -74,7 +73,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color:#434343
+  color: #434343;
 }
 .delete-icon:hover {
   /* background-color: rgb(169, 169, 169); */
@@ -86,7 +85,12 @@
   /* border-radius: 2px; */
 }
 
-.edit-icon:hover{
+.edit-icon:hover {
   color: black;
   transition: ease-in-out 0.4s;
+}
+@media only screen and (max-width: 600px) {
+  .custom-modal {
+    width: 90vw !important;
+  }
 }

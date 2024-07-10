@@ -1,11 +1,11 @@
 .main-container {
   margin: 10px;
-  display: flex;  
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.main{
+.main {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -38,6 +38,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: smaller;
 }
 .blog-img {
   width: 88vw;
@@ -50,7 +51,7 @@
 .author-bottom {
   bottom: 0;
 }
-.edit_description_2 .ql-toolbar{
+.edit_description_2 .ql-toolbar {
   display: none;
 }
 .blog {
@@ -119,7 +120,7 @@
   box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
-#title{
+#title {
   font-size: 4.5rem;
 }
 input#Image {
@@ -183,7 +184,7 @@ input#Image {
   font-size: 1.4rem;
   cursor: pointer;
 }
-.ql-editor{
+.ql-editor {
   font-size: 1.2rem;
 }
 
@@ -216,7 +217,7 @@ input#Image {
     width: 80vw;
   }
   .ql-editor p {
-    max-height: 20vh;
+    /* max-height: 20vh; */
   }
   .blog-header {
     text-align: center;

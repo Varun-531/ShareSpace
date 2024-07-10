@@ -20,9 +20,8 @@ const Dashboard = () => {
   const [blogsList, setBlogsList] = useState([]);
   const [usernames, setUsernames] = useState({});
   useEffect(() => {
-    // Simulating a delay with setTimeout to mimic data loading
     setTimeout(() => {
-      setLoading(false); // Set loading to false after 4000 milliseconds (4 seconds)
+      setLoading(false);
     }, 2000);
   }, []);
   useEffect(() => {
