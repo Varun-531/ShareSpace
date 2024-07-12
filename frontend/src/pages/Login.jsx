@@ -5,21 +5,25 @@ import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie] = useCookies(["user"]);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setLoading(true);
     axios
       .post(process.env.REACT_APP_API + "/login", {
         email: email,
         password: password,
       })
       .then((res) => {
+        setLoading(false);
         if (res.status === 200) {
           const userId = res.data.userId;
           setCookie("userId", userId, { path: "/", maxAge: 24 * 60 * 60 });
@@ -39,6 +43,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
+        setLoading(false);
         console.error("Login error:", err);
         if (err.response && err.response.status === 401) {
           toast.error("Email or password is incorrect");
@@ -51,40 +56,52 @@ const Login = () => {
   };
 
   return (
-    <div className="container1">
-      <div className="login-container">
-        <form className="login-form" onSubmit={handleLogin}>
-          <h1>Login</h1>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="off"
+    <>
+      {loading && (
+        <div className="loader-overlay">
+          <HashLoader
+            loading={loading}
+            speedMultiplier={1}
+            size={30}
+            aria-label="Loading Spinner"
           />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="off"
-          />
-          <Button variant="primary" className="btt" type="submit">
-            Login
-          </Button>
-          <p>
-            Don't have an account? <Link to={"/register"}>Register</Link>
-          </p>
-          <p>
-            <Link to={"/forgot-password"}>Forgot Password?</Link>
-          </p>
-        </form>
+        </div>
+      )}
+      <div className="container1">
+        <div className="login-container">
+          <form className="login-form" onSubmit={handleLogin}>
+            <h1>Login</h1>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="off"
+            />
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="off"
+            />
+            <Button variant="primary" className="btt" type="submit">
+              Login
+            </Button>
+            <p>
+              Don't have an account? <Link to={"/register"}>Register</Link>
+            </p>
+            <p>
+              <Link to={"/forgot-password"}>Forgot Password?</Link>
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

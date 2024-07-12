@@ -5,6 +5,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
+import HashLoader from "react-spinners/HashLoader";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -18,14 +19,17 @@ const Register = () => {
   const [button1, setButton1] = useState(true);
   const [button2, setButton2] = useState(false);
   const [button3, SetButton3] = useState(false);
+  const [loading, setLoading] = useState(false);
   // const [hashedOtp, setHashedOtp] = useState("");
 
   const handleVerification = async () => {
     setOtpBox(true);
     try {
+      setLoading(true);
       axios
         .post(process.env.REACT_APP_API + "3001/email-verification", { email })
         .then((res) => {
+          setLoading(false);
           if (res.status === 200) {
             toast.success("OTP sent successfully");
             setButton1(false);
@@ -35,6 +39,7 @@ const Register = () => {
           }
         });
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -84,89 +89,101 @@ const Register = () => {
   };
 
   return (
-    <div className="container1">
-      <div className="login-container">
-        <form className="login-form" onSubmit={handleSubmit}>
-          <h1>Register</h1>
-          <input
-            type="text"
-            value={username}
-            name="username"
-            id="username"
-            placeholder="Username"
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-            autoComplete="off"
+    <>
+      {loading && (
+        <div className="loader-overlay">
+          <HashLoader
+            loading={loading}
+            speedMultiplier={1}
+            size={30}
+            aria-label="Loading Spinner"
           />
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            autoComplete="off"
-          />
-          {button1 && (
-            <Button
-              onClick={() => {
-                handleVerification();
-              }}
-            >
-              Send Otp
-            </Button>
-          )}
-          {otpBox && (
+        </div>
+      )}
+      <div className="container1">
+        <div className="login-container">
+          <form className="login-form" onSubmit={handleSubmit}>
+            <h1>Register</h1>
             <input
               type="text"
-              name="otp"
-              id="otp"
-              placeholder="Enter OTP"
-              value={otp}
+              value={username}
+              name="username"
+              id="username"
+              placeholder="Username"
               onChange={(e) => {
-                setOtp(e.target.value);
+                setUsername(e.target.value);
               }}
+              autoComplete="off"
             />
-          )}
-          {button2 && <Button onClick={handleOTPVerification}>Verify</Button>}
-          {otpSent && (
-            <>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              autoComplete="off"
+            />
+            {button1 && (
+              <Button
+                onClick={() => {
+                  handleVerification();
                 }}
-                autoComplete="off"
-              />
-              <input
-                type="password"
-                name="confirmpassword"
-                id="confirmpassword"
-                placeholder="Confirm Password"
-                value={confirmpassword}
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
-                }}
-                autoComplete="off"
-              />
-              <Button variant="primary" type="submit">
-                Register
+              >
+                Send Otp
               </Button>
-            </>
-          )}
-          <p>
-            Already a user? <Link to={"/login"}>login</Link>
-          </p>
-        </form>
+            )}
+            {otpBox && (
+              <input
+                type="text"
+                name="otp"
+                id="otp"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => {
+                  setOtp(e.target.value);
+                }}
+              />
+            )}
+            {button2 && <Button onClick={handleOTPVerification}>Verify</Button>}
+            {otpSent && (
+              <>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  autoComplete="off"
+                />
+                <input
+                  type="password"
+                  name="confirmpassword"
+                  id="confirmpassword"
+                  placeholder="Confirm Password"
+                  value={confirmpassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                  }}
+                  autoComplete="off"
+                />
+                <Button variant="primary" type="submit">
+                  Register
+                </Button>
+              </>
+            )}
+            <p>
+              Already a user? <Link to={"/login"}>login</Link>
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
