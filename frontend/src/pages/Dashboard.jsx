@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HashLoader from "react-spinners/HashLoader";
+import { set } from "mongoose";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const Dashboard = () => {
     }, 2000);
   }, []);
   useEffect(() => {
+    setLoading(true);
     axios
       .get(process.env.REACT_APP_API + `/get-username/${userId}`)
       .then((res) => {
@@ -34,7 +36,7 @@ const Dashboard = () => {
 
     axios.get(process.env.REACT_APP_API + `/fetch-blogs`).then((response) => {
       setBlogsList(response.data);
-
+      setLoading(false);
       // Fetch usernames for each blog author
       response.data.forEach((blog) => {
         axios

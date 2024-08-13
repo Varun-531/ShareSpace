@@ -113,7 +113,6 @@ const CreatePosts = () => {
       )}
       <div className="container2">
         <div className="creatBlog">
-          {/* <Button onClick={handleHome}>Back to Home</Button> */}
           <form className="create-blog-form" onSubmit={handleCreatePost}>
             <input
               type="text"

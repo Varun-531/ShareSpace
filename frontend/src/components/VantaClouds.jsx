@@ -5,8 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-
-
 const VantaClouds = ({ children, texts, small }) => {
   const vantaRef = useRef(null);
   const vantaInstance = useRef(null);
@@ -24,7 +22,6 @@ const VantaClouds = ({ children, texts, small }) => {
       speed: 1.9,
     });
 
-    // Clean up when the component unmounts
     return () => {
       if (vantaInstance.current) {
         vantaInstance.current.destroy();
@@ -37,21 +34,20 @@ const VantaClouds = ({ children, texts, small }) => {
       setCurrentTextIndex((prevIndex) =>
         prevIndex === texts.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); //
+    }, 3000);
 
     return () => clearInterval(intervalId);
   }, [texts]);
 
   const navigate = useNavigate();
 
-  const handleLogin = () =>{
-    navigate("./login")
-  }
+  const handleLogin = () => {
+    navigate("./login");
+  };
 
   return (
     <div className="vantaContainer" ref={vantaRef}>
       {children}
-      {/* <h1>{small}</h1> */}
       <h1>
         Share your <span>{typedText}</span>
       </h1>
